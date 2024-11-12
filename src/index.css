@@ -7,3 +7,19 @@ body{
   font-family: "Manrope", sans-serif;
 
 }
+
+
+.react-international-phone-input-container .react-international-phone-input {
+  border: none;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  background: red;
+}
+.react-international-phone-input-container
+  .react-international-phone-country-selector-button {
+  padding: 6px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  background: "#efefef";
+  border-radius: 0px;
+}

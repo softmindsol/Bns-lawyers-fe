@@ -59,7 +59,7 @@ const SignIn = () => {
           <div className="flex flex-1 flex-col justify-center bg-white py-8 sm:py-16 px-4 sm:px-6 lg:px-20 xl:px-24 rounded-2xl lg:rounded-tl-none lg:rounded-bl-none lg:rounded-tr-2xl lg:rounded-br-2xl">
             <div>
               <h2 className="mt-8 text-3xl font-bold leading-7 tracking-tight text-[#303841]">
-               Log in {" "}
+               Log In {" "}
               
               </h2>
 
@@ -111,7 +111,7 @@ const SignIn = () => {
                         />
                         <label
                           htmlFor="remember-me"
-                          className="ml-2 font-medium text-[14px] leading-6 text-[#0057FF]"
+                          className="ml-2 font-medium text-[14px] leading-6 text-[#0A2540]"
                         >
                           Remember me
                         </label>
@@ -119,7 +119,7 @@ const SignIn = () => {
 
                       <div className="text-sm leading-6">
                         <Link to={"/forgot-password"}>
-                          <p className="font-medium text-[14px] leading-6 text-[#0057FF]">
+                          <p className="font-medium text-[14px] leading-6 text-[#0A2540]">
                             Forgot password?
                           </p>
                         </Link>
@@ -129,7 +129,7 @@ const SignIn = () => {
                     <div>
                       <button
                         type="submit"
-                        className="flex w-full items-center gap-2 justify-center rounded-md bg-[#0057FF] px-3 py-2 text-[16px] font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="flex w-full items-center gap-2 justify-center rounded-md bg-[#0A2540] px-3 py-2 text-[16px] font-semibold leading-6 text-white shadow-sm "
                         disabled={isSubmitting}
                       >
                         {isSubmitting ? "Signing in..." : "Submit"}
@@ -144,7 +144,7 @@ const SignIn = () => {
                 <p className="text-[14px] font-normal">
                   Don't have an account?{" "}
                   <Link to={"/sign-up"}>  
-                  <span className="text-[#0057FF] font-semibold underline">Sign up</span>
+                  <span className="text-[#0A2540] font-semibold underline">Sign up</span>
                   </Link>
                 </p>
               </div>
