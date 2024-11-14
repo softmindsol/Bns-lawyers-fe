@@ -6,6 +6,7 @@ import SignIn from './pages/auth/signin'
 import { Route, Routes } from 'react-router-dom'
 import SignUp from './pages/auth/SignUp'
 import Packages from './pages/auth/packages'
+import Home from './pages/home/Home'
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
           <Route path="/" element={<SignIn />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/packages" element={<Packages />} />
+          <Route path="/home" element={<Home />} />
+
 
 
           </Routes>
