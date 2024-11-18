@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom'
 import SignUp from './pages/auth/SignUp'
 import Packages from './pages/auth/packages'
 import Home from './pages/home/Home'
+import PetitionForm from './pages/petition-form/PetitionForm'
 
 function App() {
 
@@ -17,6 +18,8 @@ function App() {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/packages" element={<Packages />} />
           <Route path="/home" element={<Home />} />
+          <Route path="/prtition-form" element={<PetitionForm />} />
+
 
 
 

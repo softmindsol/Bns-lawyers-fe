@@ -68,7 +68,7 @@ const ChatInput = ({ isDarkMode, onSendMessage }) => {
   };
 
   return (
-    <div className={`p-4 w-[75rem] flex items-center space-x-2 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t`}>
+    <div className={`p-4 w-[63rem] flex items-center space-x-2 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t`}>
     <input
       value={message}
       onChange={(e) => setMessage(e.target.value)}
