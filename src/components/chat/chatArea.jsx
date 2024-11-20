@@ -159,7 +159,7 @@ const ChatArea = () => {
     <div className={`flex  h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-[#ffff]'}`}>
 
       {/* Chat List */}
-      <div className={`w-80 ${isDarkMode ? 'bg-gray-800' : 'bg-gary-700'} border-r`}>
+      <div className={`w-full ${isDarkMode ? 'bg-gray-800' : 'bg-gary-700'} border-r`}>
         <div className="p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold">Legal Assistant</h2>
@@ -213,7 +213,7 @@ const ChatArea = () => {
       <div className="flex-1 flex flex-col">
         <ChatHeader title={activeChat?.title} isDarkMode={isDarkMode} />
         
-        <div className={`flex-1 overflow-y-auto p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-[#f4f4f9]'}`}>
+         <div className={`flex-1 overflow-y-auto p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-[#f4f4f9]'}`}>
           <div className="w-full mx-auto space-y-6">
             {messages.map((message, index) => (
               <ChatMessage

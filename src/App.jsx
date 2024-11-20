@@ -8,6 +8,7 @@ import SignUp from './pages/auth/SignUp'
 import Packages from './pages/auth/packages'
 import Home from './pages/home/Home'
 import PetitionForm from './pages/petition-form/PetitionForm'
+import PrepareContract from './pages/prepare-contract/prepareContract'
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
           <Route path="/packages" element={<Packages />} />
           <Route path="/home" element={<Home />} />
           <Route path="/prtition-form" element={<PetitionForm />} />
+          <Route path="/prepare-contract" element={<PrepareContract />} />
+
 
 
 

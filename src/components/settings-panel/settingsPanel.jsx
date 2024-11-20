@@ -24,7 +24,7 @@ const SettingsPanel = ({ isDarkMode }) => {
     ];
   
     return (
-      <div className={`w-80 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'} border-l p-6`}>
+      <div className={`w-96 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white'} border-l p-6`}>
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-lg font-bold">Settings</h3>
           <button className="p-2 hover:bg-gray-100 rounded-lg">
