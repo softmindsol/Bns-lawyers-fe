@@ -7,6 +7,8 @@ import {
 import { BiBot, BiBookOpen } from 'react-icons/bi';
 import { BsThreeDots, BsLightningCharge } from 'react-icons/bs';
 import { useDarkMode } from '../context/darkmaodeContext';
+import { MdClose } from 'react-icons/md';
+import { FaRegFilePdf } from 'react-icons/fa6';
 
 const SidebarButton = ({ icon, label, isActive, onClick }) => {
   return (
@@ -55,58 +57,63 @@ const ChatInput = ({ isDarkMode, onSendMessage }) => {
   const [file, setFile] = useState(null);
 
   const handleFileUpload = (e) => {
-    setFile(e.target.files[0]);
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setFile(uploadedFile);
+      setMessage(uploadedFile.name); // Show file name in input
+    }
   };
 
   const handleSendMessage = () => {
-    if (message.trim() !== '') {
-      onSendMessage(message);
+    if (file) {
+      // Send file
+      onSendMessage({ text: null, file });
+      setFile(null);
+      setMessage(''); // Clear input
+    } else if (message.trim() !== '') {
+      // Send text
+      onSendMessage({ text: message, file: null });
       setMessage('');
     }
+  };
 
- 
+  const handleClearFile = () => {
+    setFile(null);
+    setMessage(''); // Clear input
   };
 
   return (
-    <div className={`p-4 w-[63rem] flex items-center space-x-2 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-t`}>
-    <input
-      value={message}
-      onChange={(e) => setMessage(e.target.value)}
-      className={`flex-1 px-4 py-2 rounded-xl ${isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-100'} focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all`}
-      placeholder="Enter your prompt..."
-      onKeyDown={(e) => {
-        if (e.key === 'Enter') {
-          handleSendMessage(message, file);
-        }
-      }}
-    />
-    <div className="flex items-center space-x-2">
-    <button
-        onClick={() => handleSendMessage(message, file)}
-        className={`p-2 rounded-full ${
-          isDarkMode
-            ? 'bg-blue-600 text-white hover:bg-blue-500'
-            : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
-        } transition-colors`}
-      >
-        <AiOutlineMessage className="w-5 h-5" />
-      </button>
-      <label htmlFor="file-input" className="cursor-pointer flex items-center px-2 py-2 rounded-full bg-[#f0f6ff]  text-white hover:bg-blue-100">
-        <AiOutlinePaperClip
-          className={"text-[#77a0f4] text-[24px] font-bold"}
-        />
-        <input
-          id="file-input"
-          type="file"
-          accept="application/pdf"
-          className="hidden"
-          onChange={handleFileUpload}
-        />
+    <div className="flex items-center gap-2 p-2 border-t">
+      {file && (
+        <div className="flex items-center gap-2 bg-gray-200 px-3 py-1 rounded-lg">
+          <span className="text-sm">{file.name}</span>
+          <button onClick={handleClearFile} className="text-red-500 text-sm">x</button>
+        </div>
+      )}
+      <input
+        type="text"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+        className={`flex-1 px-4 py-2 rounded-xl ${
+          isDarkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-100 text-black'
+        } focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+        placeholder="Enter your message or upload a file..."
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleSendMessage();
+          }
+        }}
+        disabled={!!file} // Disable input when a file is uploaded
+      />
+      <label className="cursor-pointer">
+        <input type="file" onChange={handleFileUpload} className="hidden" />
+        📎
       </label>
-
+      <button onClick={handleSendMessage} className="bg-blue-500 text-white px-4 py-2 rounded-lg">
+        Send
+      </button>
     </div>
-  </div>
-);
+  );
 };
 const ChatMessage = ({ message, isAI, isDarkMode }) => {
   return (
@@ -129,110 +136,74 @@ const ChatMessage = ({ message, isAI, isDarkMode }) => {
 };
 
 const ChatArea = () => {
-  const { isDarkMode, setIsDarkMode } = useDarkMode();
-  const [activeTab, setActiveTab] = useState('chat');
-  const [activeChat, setActiveChat] = useState(null);
-  const { messages, addMessage } = UseChatMessages();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [messages, setMessages] = useState([]);
+  const isDarkMode = false; // Replace with your dark mode logic
 
-  const navigationItems = [
-    { icon: <AiOutlineMessage />, label: 'Chat', id: 'chat' },
-    { icon: <BiBookOpen />, label: 'Templates', id: 'templates' },
-    { icon: <AiOutlineTeam />, label: 'Team', id: 'team' },
-    { icon: <AiOutlineBarChart />, label: 'Analytics', id: 'analytics' },
-  ];
+  const handleSendMessage = ({ text, file }) => {
+    const newMessage = {
+      id: Date.now(),
+      text,
+      file,
+      sender: 'user', // Distinguish user messages from AI responses
+    };
+    setMessages((prev) => [...prev, newMessage]);
 
-  const chats = [
-    { id: 1, title: "Contract Analysis", time: "2h ago", preview: "Reviewed employment contract..." },
- 
-  ];
-
-  const handleSendMessage = (content) => {
-    addMessage(content, false);
-    // Simulate AI response
-    setTimeout(() => {
-      addMessage("I'll analyze your request and provide a detailed response shortly...", true);
-    }, 1000);
+    if (!file) {
+      // Simulate AI response for text
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: Date.now() + 1,
+            text: "I'll analyze your request shortly...",
+            file: null,
+            sender: 'ai',
+          },
+        ]);
+      }, 1000);
+    }
   };
 
   return (
-    <div className={`flex  h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-[#ffff]'}`}>
+    <div className="flex w-full flex-col h-screen">
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 bg-gray-100">
+        {messages.map((message) => (
+          <div
+            key={message.id}
+            className={`flex items-start gap-2 mb-4 ${
+              message.sender === 'user' ? 'justify-end' : 'justify-start'
+            }`}
+          >
+            <div
+              className={`p-3 rounded-lg ${
+                message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'
+              }`}
+            >
+              {message.file ? (
+                <a
+                  href={URL.createObjectURL(message.file)}
+                  download={message.file.name}
+                  className="text-white underline flex justify-center items-center gap-2"
+                >
+                  <FaRegFilePdf />
 
-      {/* Chat List */}
-      <div className={`w-full ${isDarkMode ? 'bg-gray-800' : 'bg-gary-700'} border-r`}>
-        <div className="p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold">Legal Assistant</h2>
-            <button className="p-2 hover:bg-gray-100 rounded-lg">
-              <BsThreeDots className="w-5 h-5" />
-            </button>
+                  {message.file.name}
+                </a>
+              ) : (
+                <span>{message.text}</span>
+              )}
+            </div>
           </div>
-
-          <button className="w-full bg-[#0057ff] text-white p-4 rounded-2xl flex items-center justify-center space-x-2 hover:bg-blue-700 transition-colors">
-            <BsLightningCharge className="w-5 h-5" />
-            <span>New Consultation</span>
-          </button>
-
-          <div className="relative mt-6">
-            <AiOutlineSearch className="w-5 h-5 absolute left-3 top-3 text-[#ced4da]" />
-            <input
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-10 pr-4 py-2 rounded-xl ${
-                isDarkMode ? 'bg-gray-700 border-gray-600' : 'bg-gray-100 text-gray-800'
-              } focus:ring-2 focus:ring-[#696969] transition-all`}
-              placeholder="Search conversations..."
-            />
-          </div>
-        </div>
-
-        <div className="px-3">
-          <div className="flex items-center space-x-2 px-3 py-6 text-[18px] text-[#303841] font-semibold">
-            <AiOutlineHistory className="w-4 h-4 text-[18px] text-[#303841] font-semibold" />
-            <span>Recent Conversations</span>
-          </div>
-          
-          {chats
-            .filter(chat => 
-              chat.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-              chat.preview.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-            .map((chat, index) => (
-              <ChatListItem
-                key={chat.id}
-                {...chat}
-                isActive={index === 0}
-                isDarkMode={isDarkMode}
-                onClick={() => setActiveChat(chat)}
-              />
-            ))}
-        </div>
+        ))}
       </div>
 
-      {/* Chat Area */}
-      <div className="flex-1 flex flex-col">
-        <ChatHeader title={activeChat?.title} isDarkMode={isDarkMode} />
-        
-         <div className={`flex-1 overflow-y-auto p-6 ${isDarkMode ? 'bg-gray-900' : 'bg-[#f4f4f9]'}`}>
-          <div className="w-full mx-auto space-y-6">
-            {messages.map((message, index) => (
-              <ChatMessage
-                key={index}
-                message={message.content}
-                isAI={message.isAI}
-                isDarkMode={isDarkMode}
-              />
-            ))}
-          </div>
-        </div>
-
-        <ChatInput isDarkMode={isDarkMode} onSendMessage={handleSendMessage} />
-      </div>
-
-
+      {/* Chat Input */}
+      <ChatInput isDarkMode={isDarkMode} onSendMessage={handleSendMessage} />
     </div>
   );
 };
+
 
 const UseChatMessages = () => {
   const [messages, setMessages] = useState([]);

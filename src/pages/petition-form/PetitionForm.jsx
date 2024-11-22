@@ -5,116 +5,162 @@ import { FaCheck, FaChevronDown } from "react-icons/fa6";
 const PetitionForm = () => {
   const [selectedType, setSelectedType] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const petitionTypes = [
-    "Court Petitions",
-    "Enforcement and Bankruptcy Petitions",
-    "Petitions of Objection and Appeal",
-    "Other Legal Petitions",
-    "Notice",
-  ];
 
-  const renderCourtPetitionsForm = () => (
-    <div className="space-y-6">
-      <div>
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Summary of the incident:
-        </label>
-        <textarea
-          placeholder="Write a brief summary of the event"
-          className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
-        ></textarea>
-      </div>
-      <div>
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Plaintiff/Defendant Information:
-        </label>
-        <textarea
-          placeholder="Enter the defendant's name, surname and contact information."
-          className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
-        ></textarea>
-      </div>
-      <div>
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Request:
-        </label>
-        <textarea
-          placeholder="Please indicate your request regarding this petition (for example, request for compensation)"
-          className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
-        ></textarea>
-      </div>
+  const petitionForms = {
+    "Court Petitions": {
+      fields: [
+        { 
+          type: 'textarea', 
+          label: 'Summary of the incident', 
+          placeholder: 'Write a brief summary of the event' 
+        },
+        { 
+          type: 'textarea', 
+          label: 'Plaintiff/Defendant Information', 
+          placeholder: 'Enter the defendant\'s name, surname and contact information.' 
+        },
+        { 
+          type: 'textarea', 
+          label: 'Request', 
+          placeholder: 'Please indicate your request regarding this petition (for example, request for compensation)' 
+        },
+        { 
+          type: 'text', 
+          label: 'Scene', 
+          placeholder: 'Enter the scene' 
+        },
+        { 
+          type: 'date', 
+          label: 'Date of the incident', 
+          placeholder: 'Select date' 
+        }
+      ],
+      buttonText: 'Create a Petition Draft'
+    },
+    "Enforcement and Bankruptcy Petitions": {
+      fields: [
+        { 
+          type: 'textarea', 
+          label: 'Enforcement Information', 
+          placeholder: 'Provide details about the enforcement case.' 
+        },
+        { 
+          type: 'textarea', 
+          label: 'Debtor Information', 
+          placeholder: 'Enter the debtor\'s name, surname and contact information.' 
+        }
+      ],
+      buttonText: 'Create a Petition Draft'
+    },
+    "Petitions of Objection and Appeal": {
+      fields: [
+        { 
+          type: 'textarea', 
+          label: 'Summary of the incident', 
+          placeholder: 'Write a brief summary of the event' 
+        },
+        { 
+          type: 'textarea', 
+          label: 'Basis for Objection/Appeal', 
+          placeholder: 'Provide detailed reasons for your objection or appeal' 
+        }
+      ],
+      buttonText: 'Submit Objection/Appeal'
+    },
+    "Other Legal Petitions": {
+      fields: [
+        { 
+          type: 'textarea', 
+          label: 'Petition Details', 
+          placeholder: 'Provide comprehensive details of your legal petition' 
+        },
+        { 
+          type: 'text', 
+          label: 'Related Parties', 
+          placeholder: 'List all parties involved in the petition' 
+        }
+      ],
+      buttonText: 'Create Legal Petition'
+    },
+    "Notice": {
+      fields: [
+        { 
+          type: 'textarea', 
+          label: 'Notice Content', 
+          placeholder: 'Write the full content of the notice' 
+        },
+        { 
+          type: 'text', 
+          label: 'Recipient Details', 
+          placeholder: 'Enter recipient\'s name and contact information' 
+        },
+        { 
+          type: 'date', 
+          label: 'Notice Date', 
+          placeholder: 'Select date of notice' 
+        }
+      ],
+      buttonText: 'Issue Notice'
+    }
+  };
 
-      <div className=" ">
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Scene:
-        </label>
-        <input
-          type="text"
-          placeholder="Enter the scene
-"
-          className="w-full flex justify-between items-center px-3  py-2 text-textblack border border-[#CCCCCC] rounded-md"
-        />
-      </div>
-
-      <div className=" ">
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Date of the incident:
-        </label>
-        <input
-          type="date"
-          placeholder="Enter the scene
-"
-          className="w-full items-center px-3  py-2 text-textblack border border-[#CCCCCC] rounded-md"
-        />
-      </div>
-      <button className=" px-6 bg-[#0057ff] text-white py-2 rounded hover:bg-orange-600">
-        Create a Petition Draft
-      </button>
-    </div>
-  );
-
-  const renderEnforcementForm = () => (
-    <div className="space-y-6">
-      <div>
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Enforcement Information:
-        </label>
-        <textarea
-          placeholder="Provide details about the enforcement case."
-          className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
-        ></textarea>
-      </div>
-      <div>
-        <label className="block text-sm text-[18px] font-medium mb-2">
-          Debtor Information:
-        </label>
-        <textarea
-          placeholder="Enter the debtor's name, surname and contact information."
-          className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
-        ></textarea>
-      </div>
-      <button className=" px-6 bg-[#0057ff] text-white py-2 rounded hover:bg-orange-600">
-        Create a Petition Draft
-      </button>
-    </div>
-  );
+  const renderField = (field) => {
+    switch (field.type) {
+      case 'text':
+        return (
+          <div key={field.label}>
+            <label className="block text-sm text-[18px] font-medium mb-2">
+              {field.label}:
+            </label>
+            <input
+              type="text"
+              placeholder={field.placeholder}
+              className="w-full px-3 py-2 border border-[#CCCCCC] rounded-md"
+            />
+          </div>
+        );
+      case 'textarea':
+        return (
+          <div key={field.label}>
+            <label className="block text-sm text-[18px] font-medium mb-2">
+              {field.label}:
+            </label>
+            <textarea
+              placeholder={field.placeholder}
+              className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
+            ></textarea>
+          </div>
+        );
+      case 'date':
+        return (
+          <div key={field.label}>
+            <label className="block text-sm text-[18px] font-medium mb-2">
+              {field.label}:
+            </label>
+            <input
+              type="date"
+              placeholder={field.placeholder}
+              className="w-full px-3 py-2 border border-[#CCCCCC] rounded-md"
+            />
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
 
   const renderForm = () => {
+    if (!selectedType) return null;
 
-  
-    switch (selectedType) {
-      case "Court Petitions":
-        return renderCourtPetitionsForm();
-      case "Enforcement and Bankruptcy Petitions":
-        return renderEnforcementForm();
-      case "Petitions of Objection and Appeal":
-        return renderCourtPetitionsForm();
-      case "Other Legal Petitions":
-        return renderCourtPetitionsForm();
-      case "Notice":
-        return renderCourtPetitionsForm();
-      default:
-        return <div className="p-4 text-gray-500"></div>;
-    }
+    const petitionForm = petitionForms[selectedType];
+    return (
+      <div className="space-y-6">
+        {petitionForm?.fields?.map(renderField)}
+        <button className="px-6 bg-[#0057ff] text-white py-2 rounded hover:bg-orange-600">
+          {petitionForm.buttonText}
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -122,79 +168,39 @@ const PetitionForm = () => {
       <Sidebar />
       <div className="mx-20 bg-white shadow-lg px-20 py-12 rounded-md my-20">
         <h1 className="text-[24px] text-[#0A2540] mb-5">
-          Select Petition Type{" "}
+          Select Petition Type
         </h1>
         <div className="space-y-6">
           <div className="relative">
-            {/* Dropdown Trigger */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="
-          w-full 
-          flex items-center justify-between 
-          px-4 py-2 
-          bg-blue-600 text-white 
-          rounded-lg 
-          shadow-md 
-          hover:bg-blue-700 
-          transition-colors 
-          duration-300
-        "
+              className="w-full flex items-center justify-between px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
             >
               {selectedType || "Select Petition Type"}
               <FaChevronDown
-                className={`
-            transition-transform 
-            duration-300 
-            ${isOpen ? "rotate-180" : ""}
-          `}
+                className={`transition-transform duration-300 ${
+                  isOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
 
-            {/* Dropdown List */}
             {isOpen && (
-              <div
-                className="
-            absolute 
-            top-full 
-            mt-1 
-            w-full 
-            bg-white 
-            border 
-            border-gray-200 
-            rounded-lg 
-            shadow-lg 
-            z-10 
-            max-h-60 
-            overflow-y-auto
-          "
-              >
-                {petitionTypes.map((type) => (
+              <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+                {Object.keys(petitionForms)?.map((type) => (
                   <div
                     key={type}
                     onClick={() => {
                       setSelectedType(type);
                       setIsOpen(false);
                     }}
-                    className="
-                px-4 
-                py-2 
-                hover:bg-blue-50 
-                cursor-pointer 
-                flex 
-                items-center 
-                justify-between
-                group
-              "
+                    className="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center justify-between group"
                   >
                     <span
-                      className={`
-                  ${
-                    selectedType === type
-                      ? "text-blue-600 font-semibold"
-                      : "text-gray-700"
-                  }
-                `}
+                      className={`${
+                        selectedType === type
+                          ? "text-blue-600 font-semibold"
+                          : "text-gray-700"
+                      }`}
                     >
                       {type}
                     </span>

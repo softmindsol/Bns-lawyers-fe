@@ -12,7 +12,7 @@ const Sidebar = () => {
   const links = [
     { name: "", href: "/home", icon: RiHome4Line },
     { name: "", href: "/prtition-form", icon: CgNotes },
-    { name: "", href: "/project-management", icon: IoSettingsOutline },
+    { name: "", href: "/prepare-contract", icon: IoSettingsOutline },
   ];
 
   const isLinkActive = (href) => {
