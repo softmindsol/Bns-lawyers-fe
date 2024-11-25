@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { FiMenu, FiX } from "react-icons/fi";
-import { RiHome4Line } from "react-icons/ri";
+import { RiContractLine, RiHome4Line } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgNotes } from "react-icons/cg";
 import { BiBot } from "react-icons/bi";
 import { Link } from 'react-router-dom';
+import { LiaFileContractSolid } from 'react-icons/lia';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ const Sidebar = () => {
   const links = [
     { name: "", href: "/home", icon: RiHome4Line },
     { name: "", href: "/petition-form", icon: CgNotes },
-    { name: "", href: "/prepare-contract", icon: IoSettingsOutline },
+    { name: "", href: "/prepare-contract", icon: RiContractLine },
   ];
 
   const isLinkActive = (href) => {
