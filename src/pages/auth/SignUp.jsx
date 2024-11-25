@@ -213,7 +213,7 @@ const SignUp = () => {
                     </div>
 
                     <div>
-                      <Link to={"/bring"}>  
+                      <Link to={"/pricing-plan"}>  
                       <button
                         type="submit"
                         className="flex w-full items-center gap-2 justify-center rounded-md bg-[#0A2540] px-3 py-2 text-[16px] font-semibold leading-6 text-white shadow-sm "
