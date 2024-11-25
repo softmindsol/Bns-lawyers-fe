@@ -11,7 +11,7 @@ const Sidebar = () => {
 
   const links = [
     { name: "", href: "/home", icon: RiHome4Line },
-    { name: "", href: "/prtition-form", icon: CgNotes },
+    { name: "", href: "/petition-form", icon: CgNotes },
     { name: "", href: "/prepare-contract", icon: IoSettingsOutline },
   ];
 

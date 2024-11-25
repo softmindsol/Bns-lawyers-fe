@@ -20,7 +20,7 @@ const DashboardContent = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-y-hidden">
       <div className={`flex-1 ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-50'}`}>
         <div className="flex w-full">
           <Sidebar

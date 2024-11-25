@@ -127,6 +127,7 @@ const SignIn = () => {
                     </div>
 
                     <div>
+                      <Link to ={"/home"}>   
                       <button
                         type="submit"
                         className="flex w-full items-center gap-2 justify-center rounded-md bg-[#0A2540] px-3 py-2 text-[16px] font-semibold leading-6 text-white shadow-sm "
@@ -135,6 +136,7 @@ const SignIn = () => {
                         {isSubmitting ? "Signing in..." : "Submit"}
                         <FaArrowRightLong />
                       </button>
+                      </Link>
                     </div>
                   </Form>
                 )}
