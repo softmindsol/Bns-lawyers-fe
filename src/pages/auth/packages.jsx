@@ -56,7 +56,7 @@ const Packages = () => {
       
 
   return (
-    <div className="bg-[#f5f5f5] min-h-screen px-4 sm:px-6 flex justify-center items-center">
+    <div className="bg-[#ffff] min-h-screen px-4 sm:px-6 flex justify-center items-center">
       <div className="container max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-3 pb-10 gap-6">
           {pricingPlan.map((item, index) => (
