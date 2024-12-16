@@ -16,14 +16,14 @@ const ResetPassword = () => {
   const loginFields = [
     {
       id: "email",
-      label: "Email address",
+      label: "New Password",
       type: "email",
       placeholder: "example@gmail.com",
       icon: <MdEmail />, // Render as a component
     },
     {
       id: "password",
-      label: "Password",
+      label: "Confirm Password",
       type: "password",
       placeholder: "********",
       icon: <RiLockPasswordFill />, // Render as a component
