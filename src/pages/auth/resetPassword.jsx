@@ -49,8 +49,7 @@ const ResetPassword = () => {
             </div>
             <div>
               <h2 className="mt-8 text-[26px] font-semibold leading-7 tracking-tight text-[#303841]">
-                Log in to your Account
-              </h2>
+              Reset Your Password              </h2>
 
               <Formik
                 initialValues={{ email: "", password: "" }}
@@ -90,30 +89,7 @@ const ResetPassword = () => {
                       )
                     )}
 
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex items-center">
-                        <Field
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        />
-                        <label
-                          htmlFor="remember-me"
-                          className="ml-2 font-medium text-[14px] leading-6 text-[#0A2540]"
-                        >
-                          Remember me
-                        </label>
-                      </div>
-
-                      <div className="text-sm leading-6">
-                        <Link to={"/forgot-password"}>
-                          <p className="font-medium text-[14px] leading-6 text-[#0057FF]">
-                            Forgot your password?
-                          </p>
-                        </Link>
-                      </div>
-                    </div>
+              
 
                     <div>
                       <Link to={"/home"}>
