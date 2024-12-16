@@ -6,6 +6,7 @@ import Packages from "./pages/auth/packages";
 import Home from "./pages/home/Home";
 import PetitionForm from "./pages/petition-form/PetitionForm";
 import PrepareContract from "./pages/prepare-contract/prepareContract";
+import ResetPassword from "./pages/auth/resetPassword";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+
         <Route path="/pricing-plan" element={<Packages />} />
         <Route path="/home" element={<Home />} />
         <Route path="/petition-form" element={<PetitionForm />} />

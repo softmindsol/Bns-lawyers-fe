@@ -8,22 +8,22 @@ import Logo from "../../assets/logo.png";
 import { FaArrowRightLong, FaFacebook } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
-import { SignInSchema } from "../schema/user.schema";
+import { ResetPasswordSchema, SignInSchema } from "../schema/user.schema";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
 
-const SignIn = () => {
+const ResetPassword = () => {
   const loginFields = [
     {
       id: "email",
-      label: "New Password",
+      label: "Email address",
       type: "email",
       placeholder: "example@gmail.com",
-      icon: <RiLockPasswordFill />, // Render as a component
+      icon: <MdEmail />, // Render as a component
     },
     {
       id: "password",
-      label: "Confirm Password",
+      label: "Password",
       type: "password",
       placeholder: "********",
       icon: <RiLockPasswordFill />, // Render as a component
@@ -54,7 +54,7 @@ const SignIn = () => {
 
               <Formik
                 initialValues={{ email: "", password: "" }}
-                validationSchema={SignInSchema}
+                validationSchema={ResetPasswordSchema}
                 onSubmit={(values, { setSubmitting }) => {
                   console.log(values);
                   setSubmitting(false);
@@ -107,7 +107,7 @@ const SignIn = () => {
                       </div>
 
                       <div className="text-sm leading-6">
-                        <Link to={"/reset-password"}>
+                        <Link to={"/forgot-password"}>
                           <p className="font-medium text-[14px] leading-6 text-[#0057FF]">
                             Forgot your password?
                           </p>
@@ -122,8 +122,7 @@ const SignIn = () => {
                           className="flex w-full items-center gap-2 justify-center rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm "
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? "Signing in..." : "Log in"}
-                          <FaArrowRightLong />
+                          Reset Password <FaArrowRightLong />
                         </button>
                       </Link>
                     </div>
@@ -131,17 +130,7 @@ const SignIn = () => {
                 )}
               </Formik>
 
-              <div className="mt-6 flex justify-center items-center">
-                <p className="text-[14px] text-[#6B7280] font-semibold">
-                  New to AiDA CHAT?{" "}
-                  <Link to={"/sign-up"}>
-                    <span className="text-[#0057FF] font-semibold underline">
-                      {" "}
-                      Sign up now{" "}
-                    </span>
-                  </Link>
-                </p>
-              </div>
+      
             </div>
           </div>
           <div className="hidden lg:block">
@@ -162,4 +151,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default ResetPassword;
