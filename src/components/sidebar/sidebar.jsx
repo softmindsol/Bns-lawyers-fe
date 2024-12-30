@@ -12,42 +12,32 @@ const Sidebar = () => {
   const [selected, setSelected] = useState("Home");
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
+
   const handleFeedbackClick = () => {
     setSelected("Share Feedback");
     setShowFeedback(!showFeedback);
   };
 
   const handleSubmit = () => {
-    // Here you would typically send the feedback to your backend
     console.log("Feedback submitted:", feedback);
     setFeedback("");
     setShowFeedback(false);
   };
+
   const menuItems = [
     { label: "Home", icon: <AiOutlineHome size={20} />, link: "#" },
-    {
-      label: "Getting Started",
-      icon: <AiOutlineFileText size={20} />,
-      link: "#",
-    },
-    {
-      label: "Prepare Contract",
-      icon: <AiOutlineFileText size={20} />,
-      link: "#",
-    },
-
+    { label: "Getting Started", icon: <AiOutlineFileText size={20} />, link: "#" },
+    { label: "Prepare Contract", icon: <AiOutlineFileText size={20} />, link: "#" },
   ];
 
   return (
     <div className="h-screen my-6 mx-6 w-72 bg-white shadow-xl flex flex-col">
-      {/* Logo Section */}
       <div className="p-4 border-b">
-        <div className="flex justify-center  items-center   ">
-          <img src={Logo}  alt="Logo" />
+        <div className="flex justify-center items-center">
+          <img src={Logo} alt="Logo" />
         </div>
       </div>
 
-      {/* Navigation Links */}
       <nav className="flex-1 p-4">
         <ul className="space-y-2">
           {menuItems.map((item, index) => (
@@ -67,7 +57,6 @@ const Sidebar = () => {
             </li>
           ))}
 
-          {/* Share Feedback Section */}
           <li>
             <div className="space-y-2">
               <a
@@ -83,8 +72,11 @@ const Sidebar = () => {
                 <span>Share Feedback</span>
               </a>
               
-              {/* Feedback Form */}
-              {showFeedback && (
+              <div 
+                className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                  showFeedback ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+                }`}
+              >
                 <div className="relative mt-6 px-2">
                   <textarea
                     value={feedback}
@@ -99,13 +91,12 @@ const Sidebar = () => {
                     Submit
                   </button>
                 </div>
-              )}
+              </div>
             </div>
           </li>
         </ul>
       </nav>
 
-      {/* Upgrade Plan Section */}
       <div className="px-4 py-2 my-4 mx-2 rounded-[6px] bg-[#F4F4F9] border-t">
         <a
           href="#"
@@ -116,12 +107,10 @@ const Sidebar = () => {
           }`}
           onClick={() => setSelected("Upgrade Plan")}
         >
-          <div> 
-         <img src={shuttle}/>
-         </div>
-         <div>  
-          <h1 className="text-[#0A2540] text-[16px] font-medium">Upgrade Plan</h1>
-          <span className="text-textgray text-[10px] font-normal">More access to the best plans</span>
+          <div><img src={shuttle} alt="Shuttle" /></div>
+          <div>
+            <h1 className="text-[#0A2540] text-[16px] font-medium">Upgrade Plan</h1>
+            <span className="text-textgray text-[10px] font-normal">More access to the best plans</span>
           </div>
         </a>
       </div>
