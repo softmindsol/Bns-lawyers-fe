@@ -1,99 +1,129 @@
-import React, { useState } from 'react';
-import { FiMenu, FiX } from "react-icons/fi";
-import { RiContractLine, RiHome4Line } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
-import { CgNotes } from "react-icons/cg";
-import { BiBot } from "react-icons/bi";
-import { Link } from 'react-router-dom';
-import { LiaFileContractSolid } from 'react-icons/lia';
+import React, { useState } from "react";
+import {
+  AiOutlineHome,
+  AiOutlineFileText,
+  AiOutlineShareAlt,
+  AiOutlineCreditCard,
+} from "react-icons/ai";
+import Logo from "../../assets/sidebarlogo.png";
+import shuttle from "../../assets/shuttle.png"
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [selected, setSelected] = useState("Home");
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const handleFeedbackClick = () => {
+    setSelected("Share Feedback");
+    setShowFeedback(!showFeedback);
+  };
 
-  const links = [
-    { name: "", href: "/home", icon: RiHome4Line },
-    { name: "", href: "/petition-form", icon: CgNotes },
-    { name: "", href: "/prepare-contract", icon: RiContractLine },
+  const handleSubmit = () => {
+    // Here you would typically send the feedback to your backend
+    console.log("Feedback submitted:", feedback);
+    setFeedback("");
+    setShowFeedback(false);
+  };
+  const menuItems = [
+    { label: "Home", icon: <AiOutlineHome size={20} />, link: "#" },
+    {
+      label: "Getting Started",
+      icon: <AiOutlineFileText size={20} />,
+      link: "#",
+    },
+    {
+      label: "Prepare Contract",
+      icon: <AiOutlineFileText size={20} />,
+      link: "#",
+    },
+
   ];
 
-  const isLinkActive = (href) => {
-    if (typeof window !== "undefined") {
-      return window.location.pathname === href;
-    }
-    return false;
-  };
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <div className="relative max-w-[30rem] h-full">
-      <div className="flex bg-white justify-center border-r items-center pt-3">
-        <div className="px-3 py-3 bg-[#0057ff] rounded-2xl flex items-center justify-center hover:scale-110 transition-transform">
-          <BiBot className="w-8 h-8 text-white" />
+    <div className="h-screen my-6 mx-6 w-72 bg-white shadow-xl flex flex-col">
+      {/* Logo Section */}
+      <div className="p-4 border-b">
+        <div className="flex justify-center  items-center   ">
+          <img src={Logo}  alt="Logo" />
         </div>
       </div>
 
-      {/* Sidebar for larger screens */}
-      <div className="bg-white border-r min-h-screen h-full sticky top-0 py-8 w-36 space-y-6 hidden lg:block">
-        <nav>
-          {links.map((link, index) => (
-            <Link
-              key={index}
-              to={link.href}
-              className="py-2 px-6 mb-1 flex justify-center items-center hover:bg-gray-50 transition-colors"
-            >
-              {React.createElement(link.icon, {
-                className: `text-2xl transition-colors ${
-                  isLinkActive(link.href)
-                    ? "text-[#0057ff]"
-                    : "text-gray-600 hover:text-gray-900"
-                }`,
-              })}
-            </Link>
+      {/* Navigation Links */}
+      <nav className="flex-1 p-4">
+        <ul className="space-y-2">
+          {menuItems.map((item, index) => (
+            <li key={index}>
+              <a
+                href={item.link}
+                onClick={() => setSelected(item.label)}
+                className={`flex items-center space-x-3 p-2 rounded-lg ${
+                  selected === item.label
+                    ? "text-white bg-[#0057FF]"
+                    : "text-[#0A2540] hover:bg-gray-100"
+                }`}
+              >
+                {item.icon}
+                <span>{item.label}</span>
+              </a>
+            </li>
           ))}
-        </nav>
-      </div>
 
-      {/* Mobile Menu Icon */}
-      <div className="lg:hidden flex items-center p-2">
-        <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
-          {isOpen ? <FiX /> : <FiMenu />}
-        </button>
-      </div>
+          {/* Share Feedback Section */}
+          <li>
+            <div className="space-y-2">
+              <a
+                href="#"
+                onClick={handleFeedbackClick}
+                className={`flex items-center space-x-3 p-2 rounded-lg ${
+                  selected === "Share Feedback"
+                    ? "text-white bg-[#0057FF]"
+                    : "text-[#0A2540] hover:bg-gray-100"
+                }`}
+              >
+                <AiOutlineShareAlt size={20} />
+                <span>Share Feedback</span>
+              </a>
+              
+              {/* Feedback Form */}
+              {showFeedback && (
+                <div className="relative mt-6 px-2">
+                  <textarea
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                    placeholder="Share your feedback here..."
+                    className="w-full h-[247px] p-3 text-sm border border-[#CCCCCC] bg-[#F9F9FC] rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                  <button
+                    onClick={handleSubmit}
+                    className="absolute bottom-3 text-[14px] font-medium right-4 bg-mygradient1 text-white px-4 py-2 text-sm rounded-md hover:bg-blue-700 transition-colors"
+                  >
+                    Submit
+                  </button>
+                </div>
+              )}
+            </div>
+          </li>
+        </ul>
+      </nav>
 
-      {/* Mobile Sidebar */}
-      <div
-        className={`fixed top-0 left-0 bg-white border-r text-gray-900 h-screen p-5 w-64 space-y-6 transform ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out lg:hidden`}
-      >
-        <div className="flex justify-between items-center">
-          <div className="px-3 py-3 bg-[#0057ff] rounded-2xl flex items-center justify-center">
-            <BiBot className="w-8 h-8 text-white" />
+      {/* Upgrade Plan Section */}
+      <div className="px-4 py-2 my-4 mx-2 rounded-[6px] bg-[#F4F4F9] border-t">
+        <a
+          href="#"
+          className={`flex items-center space-x-3 rounded-lg ${
+            selected === "Upgrade Plan"
+              ? "text-white bg-[#0057FF]"
+              : "text-[#0A2540] hover:bg-gray-100"
+          }`}
+          onClick={() => setSelected("Upgrade Plan")}
+        >
+          <div> 
+         <img src={shuttle}/>
+         </div>
+         <div>  
+          <h1 className="text-[#0A2540] text-[16px] font-medium">Upgrade Plan</h1>
+          <span className="text-textgray text-[10px] font-normal">More access to the best plans</span>
           </div>
-          <button onClick={toggleSidebar} className="text-2xl focus:outline-none">
-            <FiX />
-          </button>
-        </div>
-        <nav className="mt-8">
-          {links.map((link, index) => (
-            <Link
-              key={index}
-              to={link.href}
-              className="block py-2 px-3 mb-2 rounded hover:bg-gray-50 transition-colors"
-            >
-              {React.createElement(link.icon, {
-                className: `text-2xl ${
-                  isLinkActive(link.href)
-                    ? "text-[#0057ff]"
-                    : "text-gray-600 hover:text-gray-900"
-                }`,
-              })}
-            </Link>
-          ))}
-        </nav>
+        </a>
       </div>
     </div>
   );

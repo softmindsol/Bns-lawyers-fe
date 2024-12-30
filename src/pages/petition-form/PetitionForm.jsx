@@ -224,7 +224,7 @@ const PetitionForm = () => {
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-full flex items-center justify-between px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
+              className="w-full flex items-center justify-between px-4 py-4 bg-mygradient1 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
             >
               {selectedType || "Select Petition Type"}
               <FaChevronDown
