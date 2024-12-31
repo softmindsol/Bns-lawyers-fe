@@ -3,10 +3,9 @@ import {
   AiOutlineHome,
   AiOutlineFileText,
   AiOutlineShareAlt,
-  AiOutlineCreditCard,
 } from "react-icons/ai";
 import Logo from "../../assets/sidebarlogo.png";
-import shuttle from "../../assets/shuttle.png"
+import shuttle from "../../assets/shuttle.png";
 
 const Sidebar = () => {
   const [selected, setSelected] = useState("Home");
@@ -26,13 +25,21 @@ const Sidebar = () => {
 
   const menuItems = [
     { label: "Home", icon: <AiOutlineHome size={20} />, link: "#" },
-    { label: "Getting Started", icon: <AiOutlineFileText size={20} />, link: "#" },
-    { label: "Prepare Contract", icon: <AiOutlineFileText size={20} />, link: "#" },
+    {
+      label: "Getting Started",
+      icon: <AiOutlineFileText size={20} />,
+      link: "#",
+    },
+    {
+      label: "Prepare Contract",
+      icon: <AiOutlineFileText size={20} />,
+      link: "#",
+    },
   ];
 
   return (
     <div className="h-screen my-6 mx-6 w-72 bg-white shadow-xl flex flex-col">
-      <div className="p-4 border-b">
+      <div className="p-2 border-b">
         <div className="flex justify-center items-center">
           <img src={Logo} alt="Logo" />
         </div>
@@ -71,10 +78,12 @@ const Sidebar = () => {
                 <AiOutlineShareAlt size={20} />
                 <span>Share Feedback</span>
               </a>
-              
-              <div 
+
+              <div
                 className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  showFeedback ? 'max-h-[300px] opacity-100' : 'max-h-0 opacity-0'
+                  showFeedback
+                    ? "max-h-[300px] opacity-100"
+                    : "max-h-0 opacity-0"
                 }`}
               >
                 <div className="relative mt-6 px-2">
@@ -107,10 +116,16 @@ const Sidebar = () => {
           }`}
           onClick={() => setSelected("Upgrade Plan")}
         >
-          <div><img src={shuttle} alt="Shuttle" /></div>
           <div>
-            <h1 className="text-[#0A2540] text-[16px] font-medium">Upgrade Plan</h1>
-            <span className="text-textgray text-[10px] font-normal">More access to the best plans</span>
+            <img src={shuttle} alt="Shuttle" />
+          </div>
+          <div>
+            <h1 className="text-[#0A2540] text-[16px] font-medium">
+              Upgrade Plan
+            </h1>
+            <span className="text-textgray text-[10px] font-normal">
+              More access to the best plans
+            </span>
           </div>
         </a>
       </div>

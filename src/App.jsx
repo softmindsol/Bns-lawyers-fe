@@ -7,6 +7,7 @@ import Home from "./pages/home/Home";
 import PetitionForm from "./pages/petition-form/PetitionForm";
 import PrepareContract from "./pages/prepare-contract/prepareContract";
 import ResetPassword from "./pages/auth/resetPassword";
+import TermsAndAgreements from "./pages/terms-agreements/termsAndAgreements";
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/petition-form" element={<PetitionForm />} />
         <Route path="/prepare-contract" element={<PrepareContract />} />
+        <Route path="/terms-agreements" element={<TermsAndAgreements />} />
+
       </Routes>
     </BrowserRouter>
   );
