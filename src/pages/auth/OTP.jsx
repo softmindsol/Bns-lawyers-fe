@@ -1,5 +1,5 @@
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { useRef, useState } from "react";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import CoverImage from "../../assets/law.png";
 import Lines from "../../assets/bglines.png";
@@ -7,21 +7,68 @@ import Logo from "../../assets/logo.png";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
-
-// OTP validation schema
-const OtpVerificationSchema = Yup.object().shape({
-  otp: Yup.string()
-    .required("OTP is required")
-    .matches(/^[0-9]{6}$/, "OTP must be exactly 6 digits"),
-});
+import { OtpVerificationSchema } from "../schema/user.schema";
 
 const OtpVerification = () => {
-  const otpField = {
-    id: "otp",
-    label: "Enter OTP",
-    type: "text",
-    placeholder: "Enter 6-digit OTP",
-    icon: <MdEmail />,
+  const [otp, setOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
+
+  const handleChange = (e, index) => {
+    const value = e.target.value;
+
+    if (value && !/^\d+$/.test(value)) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value.slice(-1);
+    setOtp(newOtp);
+
+    e.target.value = value.slice(-1);
+
+    if (value && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handleKeyDown = (e, index) => {
+    // Handle backspace
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      const newOtp = [...otp];
+      newOtp[index] = "";
+      setOtp(newOtp);
+
+      inputRefs.current[index].value = "";
+
+      if (index > 0) {
+        inputRefs.current[index - 1].focus();
+      }
+    }
+    else if (e.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1].focus();
+    }
+    else if (e.key === "ArrowRight" && index < 5) {
+      inputRefs.current[index + 1].focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pastedData = e.clipboardData.getData("text").slice(0, 6);
+    if (!/^\d+$/.test(pastedData)) return;
+
+    const newOtp = [...otp];
+    pastedData.split("").forEach((value, index) => {
+      if (index < 6) {
+        newOtp[index] = value;
+        inputRefs.current[index].value = value;
+      }
+    });
+    setOtp(newOtp);
+
+    const lastIndex = Math.min(pastedData.length, 6) - 1;
+    if (lastIndex >= 0) {
+      inputRefs.current[lastIndex].focus();
+    }
   };
 
   return (
@@ -53,33 +100,34 @@ const OtpVerification = () => {
                 initialValues={{ otp: "" }}
                 validationSchema={OtpVerificationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                  console.log(values);
+                  console.log(otp.join(""));
                   setSubmitting(false);
                 }}
               >
                 {({ isSubmitting }) => (
                   <Form className="space-y-6 mt-10">
                     <div>
-                      <label
-                        htmlFor={otpField.id}
-                        className="block lg:flex gap-1 text-sm font-semibold leading-4 text-[#303841]"
-                      >
-                        <div>{otpField.icon}</div>
-                        {otpField.label}
+                      <label className="block lg:flex gap-1 text-sm font-semibold leading-4 text-[#303841]">
+                        <div>
+                          <MdEmail />
+                        </div>
+                        Enter OTP
                       </label>
-                      <div className="mt-2">
-                        <Field
-                          id={otpField.id}
-                          name={otpField.id}
-                          type={otpField.type}
-                          placeholder={otpField.placeholder}
-                          className="block w-full rounded-[2px] border-0 text-[#303841] text-[14px] font-medium ring-1 ring-inset px-3 py-3 ring-[#CCCCCC] placeholder:text-[#2E2E2E] focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                        <ErrorMessage
-                          name={otpField.id}
-                          component="div"
-                          className="text-red-600 text-sm mt-1"
-                        />
+                      <div className="mt-4 flex justify-start gap-2 sm:gap-4">
+                        {otp.map((_, index) => (
+                          <input
+                            key={index}
+                            type="text"
+                            inputMode="numeric"
+                            autoComplete="one-time-code"
+                            maxLength="1"
+                            ref={(ref) => (inputRefs.current[index] = ref)}
+                            onChange={(e) => handleChange(e, index)}
+                            onKeyDown={(e) => handleKeyDown(e, index)}
+                            onPaste={handlePaste}
+                            className="w-12 h-12 text-center text-xl font-semibold rounded-md border-0 ring-1 ring-inset ring-[#CCCCCC] focus:ring-2 focus:ring-indigo-600"
+                          />
+                        ))}
                       </div>
                     </div>
 
@@ -87,18 +135,26 @@ const OtpVerification = () => {
                       <button
                         type="button"
                         className="text-sm text-indigo-600 hover:text-indigo-500"
-                        onClick={() => console.log("Resend OTP")}
+                        onClick={() => {
+                          setOtp(new Array(6).fill(""));
+                          inputRefs.current.forEach(
+                            (input) => (input.value = "")
+                          );
+                          inputRefs.current[0].focus();
+                        }}
                       >
                         Didn't receive code? Resend
                       </button>
                     </div>
 
                     <div>
-                      <Link to={""}>
+                      <Link to={"/new-password"}>
                         <button
                           type="submit"
-                          className="flex w-full items-center gap-2 justify-center rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
-                          disabled={isSubmitting}
+                          className="flex w-full cursor-pointer items-center gap-2 justify-center rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
+                          disabled={
+                            isSubmitting || otp.some((digit) => digit === "")
+                          }
                         >
                           Verify OTP <FaArrowRightLong />
                         </button>

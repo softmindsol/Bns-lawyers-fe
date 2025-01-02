@@ -11,15 +11,16 @@ import { Link } from "react-router-dom";
 import { ResetPasswordSchema, SignInSchema } from "../schema/user.schema";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
+import { BiLock } from "react-icons/bi";
 
-const ResetPassword = () => {
+const NewPassword = () => {
   const loginFields = [
     {
-      id: "email",
-      label: "Email",
-      type: "email",
-      placeholder: "example@gmail.com",
-      icon: <MdEmail />, // Render as a component
+      id: "password",
+      label: "New Password",
+      type: "password",
+      placeholder: "******",
+      icon: <BiLock />, // Render as a 
     },
 
   ];
@@ -121,4 +122,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default NewPassword;

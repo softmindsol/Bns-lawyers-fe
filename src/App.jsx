@@ -9,6 +9,7 @@ import PrepareContract from "./pages/prepare-contract/prepareContract";
 import ResetPassword from "./pages/auth/resetPassword";
 import TermsAndAgreements from "./pages/terms-agreements/termsAndAgreements";
 import OtpVerification from "./pages/auth/OTP";
+import NewPassword from "./pages/auth/newPassword";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/otp-verification" element={<OtpVerification />} />
+        <Route path="/new-password" element={<NewPassword />} />
+
 
 
         <Route path="/pricing-plan" element={<Packages />} />
