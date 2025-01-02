@@ -16,14 +16,14 @@ const ResetPassword = () => {
   const loginFields = [
     {
       id: "email",
-      label: "New Password",
+      label: "Email",
       type: "email",
       placeholder: "example@gmail.com",
       icon: <MdEmail />, // Render as a component
     },
     {
       id: "password",
-      label: "Confirm Password",
+      label: "New Password",
       type: "password",
       placeholder: "********",
       icon: <RiLockPasswordFill />, // Render as a component
@@ -92,7 +92,7 @@ const ResetPassword = () => {
               
 
                     <div>
-                      <Link to={"/home"}>
+                      <Link to={"/otp-verification"}>
                         <button
                           type="submit"
                           className="flex w-full items-center gap-2 justify-center rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm "

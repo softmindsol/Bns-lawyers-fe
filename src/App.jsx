@@ -8,6 +8,7 @@ import PetitionForm from "./pages/petition-form/PetitionForm";
 import PrepareContract from "./pages/prepare-contract/prepareContract";
 import ResetPassword from "./pages/auth/resetPassword";
 import TermsAndAgreements from "./pages/terms-agreements/termsAndAgreements";
+import OtpVerification from "./pages/auth/OTP";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
         <Route path="/" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/otp-verification" element={<OtpVerification />} />
+
 
         <Route path="/pricing-plan" element={<Packages />} />
         <Route path="/home" element={<Home />} />
