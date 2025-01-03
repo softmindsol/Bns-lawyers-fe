@@ -1,5 +1,7 @@
 import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
+import OtpVerification from './pages/auth/OTP';
+import NewPassword from './pages/auth/newPassword';
 
 const SignIn = lazy(() => import('./pages/auth/sign-in'));
 const SignUp = lazy(() => import('./pages/auth/sign-up'));
@@ -37,6 +39,14 @@ const router = createBrowserRouter([
   {
     path: '/prepare-contract',
     element: <PrepareContract />,
+  },
+  {
+    path: '/otp-verification',
+    element: <OtpVerification />,
+  },
+  {
+    path: '/new-password',
+    element: <NewPassword />,
   },
 ]);
 
