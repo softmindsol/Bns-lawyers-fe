@@ -29,17 +29,25 @@ export const ForgotPasswordSchema = Yup.object({
 });
 
 export const SignUpSchema = Yup.object().shape({
-  firstName: Yup.string()
-    .min(2, "First name must be at least 2 characters")
-    .required("Required"),
-  lastName: Yup.string()
-    .min(2, "Last name must be at least 2 characters")
-    .required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Required"),
-  phoneNumber: Yup.string().required("Required"),
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long"),
+  username: Yup.string()
+    .required("Username is required")
+    .min(2, "Username must be at least 2 characters long"),
+  first_name: Yup.string()
+    .required("First name is required")
+    .min(2, "First name must be at least 2 characters long"),
+  last_name: Yup.string()
+    .required("Last name is required")
+    .min(2, "Last name must be at least 2 characters long"),
+  user_type: Yup.string().optional(),
+  phone: Yup.string()
+    .required("Phone number is required")
+    .matches(/^\+?\d{10,15}$/, "Invalid phone number format"),
 });
 
 export const Selectorschema = Yup.object().shape({
