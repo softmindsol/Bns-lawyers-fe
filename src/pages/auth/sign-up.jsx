@@ -9,24 +9,13 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { FaArrowRightLong, FaMobileScreenButton } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { IoMdPerson } from "react-icons/io";
-
-const SignUpSchema = Yup.object().shape({
-  username: Yup.string()
-    .min(4, "Username must be at least 4 characters")
-    .max(20, "Username must be at most 20 characters")
-    .required("Required"),
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Required"),
-  phoneNumber: Yup.string().required("Required"),
-});
+import { SignUpSchema } from "../schema/user.schema";
 
 const formFields = [
   {
-    id: "Phone",
+    id: "phone",
     label: "Phone number",
-    type: "password",
+    type: "text",
     placeholder: "+92..",
     icon: <FaMobileScreenButton />,
   },
@@ -68,101 +57,106 @@ const SignUp = () => {
               <h2 className="mt-8 text-[26px] font-semibold leading-7 tracking-tight text-[#303841]">
                 Create an Account{" "}
               </h2>
-
               <Formik
-                initialValues={{
-                  username: "",
-                  email: "",
-                  password: "",
-                  phoneNumber: "",
-                }}
-                validationSchema={SignUpSchema}
-                onSubmit={(values, { setSubmitting }) => {
-                  console.log(values);
-                  setSubmitting(false);
-                }}
-              >
-                {({ isSubmitting }) => (
-                  <Form className="mt-10 space-y-6">
-                    <div>
-                      <label
-                        htmlFor="username"
-                        className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
-                      >
-                        <div>
-                          <IoMdPerson size={18} />
-                        </div>
-                        Username
-                      </label>
+  initialValues={{
+    first_name: "",
+    last_name: "",
+    email: "",
+    phoneNumber: "",
+    password: "",
+  }}
+  validationSchema={SignUpSchema}
+  onSubmit={(values, { setSubmitting }) => {
+    console.log(values);
+    setSubmitting(false);
+  }}
+>
+  {({ isSubmitting }) => (
+    <Form className="mt-10 space-y-6">
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label
+            htmlFor="first_name"
+            className="block text-sm font-semibold leading-4 text-[#303841]"
+          >
+            First Name
+          </label>
+          <Field
+            id="first_name"
+            name="first_name"
+            type="text"
+            placeholder="Enter your first name"
+            className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <ErrorMessage
+            name="first_name"
+            component="div"
+            className="mt-1 text-sm text-red-600"
+          />
+        </div>
 
-                      <div className="mt-2">
-                        <Field
-                          id="username"
-                          name="username"
-                          type="text"
-                          placeholder="Enter your username"
-                          className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        />
-                        <ErrorMessage
-                          name="username"
-                          component="div"
-                          className="mt-1 text-sm text-red-600"
-                        />
-                      </div>
-                    </div>
+        <div>
+          <label
+            htmlFor="last_name"
+            className="block text-sm font-semibold leading-4 text-[#303841]"
+          >
+            Last Name
+          </label>
+          <Field
+            id="last_name"
+            name="last_name"
+            type="text"
+            placeholder="Enter your last name"
+            className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+          <ErrorMessage
+            name="last_name"
+            component="div"
+            className="mt-1 text-sm text-red-600"
+          />
+        </div>
+      </div>
 
-                    {formFields.map(
-                      ({ id, label, type, placeholder, icon }) => (
-                        <div key={id}>
-                          <label
-                            htmlFor={id}
-                            className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
-                          >
-                            <div>{icon}</div>
-                            {label}
-                          </label>
-                          <div className="mt-2">
-                            <Field
-                              id={id}
-                              name={id}
-                              type={type}
-                              placeholder={placeholder}
-                              className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            />
-                            <ErrorMessage
-                              name={id}
-                              component="div"
-                              className="mt-1 text-sm text-red-600"
-                            />
-                          </div>
-                        </div>
-                      ),
-                    )}
+      {formFields.map(({ id, label, type, placeholder, icon }) => (
+        <div key={id}>
+          <label
+            htmlFor={id}
+            className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
+          >
+            <div>{icon}</div>
+            {label}
+          </label>
+          <div className="mt-2">
+            <Field
+              id={id}
+              name={id}
+              type={type}
+              placeholder={placeholder}
+              className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            <ErrorMessage
+              name={id}
+              component="div"
+              className="mt-1 text-sm text-red-600"
+            />
+          </div>
+        </div>
+      ))}
 
-                    <div>
-                      <button
-                        type="submit"
-                        className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
-                        disabled={isSubmitting}
-                      >
-                        Sign up
-                        <FaArrowRightLong />
-                      </button>
-                    </div>
+      <div>
+        <button
+          type="submit"
+          className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
+          disabled={isSubmitting}
+        >
+          Sign up
+          <FaArrowRightLong />
+        </button>
+      </div>
+    </Form>
+  )}
+</Formik>
 
-                    <div className="flex w-full items-center justify-center gap-2">
-                      <p className="text-normal text-center text-[14px] text-[#6B7280]">
-                        Already have an account?
-                        <Link to="/">
-                          <span className="font-semibold text-[#0057FF] underline">
-                            Log in
-                          </span>
-                        </Link>
-                      </p>
-                    </div>
-                  </Form>
-                )}
-              </Formik>
             </div>
           </div>
           <div className="hidden lg:block">
