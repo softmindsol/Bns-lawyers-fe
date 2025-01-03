@@ -43,8 +43,6 @@ export const SignInSchema = Yup.object().shape({
     phoneNumber: Yup.string().required("Required"),
   });
   
-
-  
   export const Selectorschema = Yup.object().shape({
     options: Yup.array()
       .of(Yup.string().required('Each option must be a non-empty string'))
