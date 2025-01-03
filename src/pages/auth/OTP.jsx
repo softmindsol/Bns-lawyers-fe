@@ -1,13 +1,12 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Formik, Form } from "formik";
-import * as Yup from "yup";
 import CoverImage from "../../assets/law.png";
 import Lines from "../../assets/bglines.png";
 import Logo from "../../assets/logo.png";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { MdEmail } from "react-icons/md";
-import { OtpVerificationSchema } from "../schema/user.schema";
+import { OtpVerificationSchema } from "../../schema/user.schema";
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
@@ -42,11 +41,9 @@ const OtpVerification = () => {
       if (index > 0) {
         inputRefs.current[index - 1].focus();
       }
-    }
-    else if (e.key === "ArrowLeft" && index > 0) {
+    } else if (e.key === "ArrowLeft" && index > 0) {
       inputRefs.current[index - 1].focus();
-    }
-    else if (e.key === "ArrowRight" && index < 5) {
+    } else if (e.key === "ArrowRight" && index < 5) {
       inputRefs.current[index + 1].focus();
     }
   };
@@ -73,7 +70,7 @@ const OtpVerification = () => {
 
   return (
     <div
-      className="bg-[#ffffff] min-h-screen px-4 sm:px-6 flex justify-center items-center"
+      className="flex min-h-screen items-center justify-center bg-[#ffffff] px-4 sm:px-6"
       style={{
         backgroundImage: `url(${Lines})`,
         backgroundSize: "cover",
@@ -82,10 +79,10 @@ const OtpVerification = () => {
         width: "100%",
       }}
     >
-      <div className="container max-w-7xl mx-auto shadow-lg rounded-2xl overflow-hidden">
+      <div className="container mx-auto max-w-7xl overflow-hidden rounded-2xl shadow-lg">
         <div className="lg:grid lg:grid-cols-[1fr_1fr]">
-          <div className="flex flex-1 flex-col justify-start bg-white sm:py-16 px-4 sm:px-6 lg:px-20 xl:px-24 rounded-2xl lg:rounded-tr-none lg:rounded-bl-none lg:rounded-tl-2xl lg:rounded-br-none">
-            <div className="flex flex-col justify-end items-start">
+          <div className="flex flex-1 flex-col justify-start rounded-2xl bg-white px-4 sm:px-6 sm:py-16 lg:rounded-bl-none lg:rounded-br-none lg:rounded-tl-2xl lg:rounded-tr-none lg:px-20 xl:px-24">
+            <div className="flex flex-col items-start justify-end">
               <img src={Logo} alt="Logo" />
             </div>
             <div>
@@ -105,9 +102,9 @@ const OtpVerification = () => {
                 }}
               >
                 {({ isSubmitting }) => (
-                  <Form className="space-y-6 mt-10">
+                  <Form className="mt-10 space-y-6">
                     <div>
-                      <label className="block lg:flex gap-1 text-sm font-semibold leading-4 text-[#303841]">
+                      <label className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex">
                         <div>
                           <MdEmail />
                         </div>
@@ -125,7 +122,7 @@ const OtpVerification = () => {
                             onChange={(e) => handleChange(e, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
                             onPaste={handlePaste}
-                            className="w-12 h-12 text-center text-xl font-semibold rounded-md border-0 ring-1 ring-inset ring-[#CCCCCC] focus:ring-2 focus:ring-indigo-600"
+                            className="h-12 w-12 rounded-md border-0 text-center text-xl font-semibold ring-1 ring-inset ring-[#CCCCCC] focus:ring-2 focus:ring-indigo-600"
                           />
                         ))}
                       </div>
@@ -138,12 +135,12 @@ const OtpVerification = () => {
                         onClick={() => {
                           setOtp(new Array(6).fill(""));
                           inputRefs.current.forEach(
-                            (input) => (input.value = "")
+                            (input) => (input.value = ""),
                           );
                           inputRefs.current[0].focus();
                         }}
                       >
-                        Didn't receive code? Resend
+                        Didn&rsquo;t receive code? Resend
                       </button>
                     </div>
 
@@ -151,7 +148,7 @@ const OtpVerification = () => {
                       <Link to={"/new-password"}>
                         <button
                           type="submit"
-                          className="flex w-full cursor-pointer items-center gap-2 justify-center rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
+                          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
                           disabled={
                             isSubmitting || otp.some((digit) => digit === "")
                           }
@@ -167,7 +164,7 @@ const OtpVerification = () => {
           </div>
           <div className="hidden lg:block">
             <div
-              className="rounded-tl-none rounded-br-2xl h-full w-full bg-cover bg-center"
+              className="h-full w-full rounded-br-2xl rounded-tl-none bg-cover bg-center"
               style={{
                 backgroundImage: `url(${CoverImage})`,
                 backgroundSize: "cover",

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   AiOutlineHome,
   AiOutlineFileText,
@@ -24,7 +24,7 @@ const Sidebar = () => {
   };
 
   const menuItems = [
-    { label: "Home", icon: <AiOutlineHome size={20} />, link: "#" },
+    { label: "Home", icon: <AiOutlineHome size={20} />, link: "/home" },
     {
       label: "Getting Started",
       icon: <AiOutlineFileText size={20} />,
@@ -38,9 +38,9 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="h-screen my-6 mx-6 w-72 bg-white shadow-xl flex flex-col">
-      <div className="p-2 border-b">
-        <div className="flex justify-center items-center">
+    <div className="mx-6 my-6 flex h-screen w-72 flex-col bg-white shadow-xl">
+      <div className="border-b p-2">
+        <div className="flex items-center justify-center">
           <img src={Logo} alt="Logo" />
         </div>
       </div>
@@ -52,9 +52,9 @@ const Sidebar = () => {
               <a
                 href={item.link}
                 onClick={() => setSelected(item.label)}
-                className={`flex items-center space-x-3 p-2 rounded-lg ${
+                className={`flex items-center space-x-3 rounded-lg p-2 ${
                   selected === item.label
-                    ? "text-white bg-[#0057FF]"
+                    ? "bg-[#0057FF] text-white"
                     : "text-[#0A2540] hover:bg-gray-100"
                 }`}
               >
@@ -69,9 +69,9 @@ const Sidebar = () => {
               <a
                 href="#"
                 onClick={handleFeedbackClick}
-                className={`flex items-center space-x-3 p-2 rounded-lg ${
+                className={`flex items-center space-x-3 rounded-lg p-2 ${
                   selected === "Share Feedback"
-                    ? "text-white bg-[#0057FF]"
+                    ? "bg-[#0057FF] text-white"
                     : "text-[#0A2540] hover:bg-gray-100"
                 }`}
               >
@@ -80,7 +80,7 @@ const Sidebar = () => {
               </a>
 
               <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
                   showFeedback
                     ? "max-h-[300px] opacity-100"
                     : "max-h-0 opacity-0"
@@ -91,11 +91,11 @@ const Sidebar = () => {
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder="Share your feedback here..."
-                    className="w-full h-[247px] p-3 text-sm border border-[#CCCCCC] bg-[#F9F9FC] rounded-lg resize-none focus:outline-none focus:ring-1 focus:ring-blue-500"
+                    className="h-[247px] w-full resize-none rounded-lg border border-[#CCCCCC] bg-[#F9F9FC] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
                   />
                   <button
                     onClick={handleSubmit}
-                    className="absolute bottom-3 text-[14px] font-medium right-4 bg-mygradient1 text-white px-4 py-2 text-sm rounded-md hover:bg-blue-700 transition-colors"
+                    className="absolute bottom-3 right-4 rounded-md bg-mygradient1 px-4 py-2 text-[14px] text-sm font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     Submit
                   </button>
@@ -106,12 +106,12 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      <div className="px-4 py-2 my-4 mx-2 rounded-[6px] bg-[#F4F4F9] border-t">
+      <div className="mx-2 my-4 rounded-[6px] border-t bg-[#F4F4F9] px-4 py-2">
         <a
           href="#"
           className={`flex items-center space-x-3 rounded-lg ${
             selected === "Upgrade Plan"
-              ? "text-white bg-[#0057FF]"
+              ? "bg-[#0057FF] text-white"
               : "text-[#0A2540] hover:bg-gray-100"
           }`}
           onClick={() => setSelected("Upgrade Plan")}
@@ -120,10 +120,10 @@ const Sidebar = () => {
             <img src={shuttle} alt="Shuttle" />
           </div>
           <div>
-            <h1 className="text-[#0A2540] text-[16px] font-medium">
+            <h1 className="text-[16px] font-medium text-[#0A2540]">
               Upgrade Plan
             </h1>
-            <span className="text-textgray text-[10px] font-normal">
+            <span className="text-[10px] font-normal text-textgray">
               More access to the best plans
             </span>
           </div>
