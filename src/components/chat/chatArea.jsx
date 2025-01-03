@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { IoMdAttach } from "react-icons/io";
 import Navbar from "../navbar/navbar";
@@ -40,16 +40,16 @@ const ChatArea = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex w-full px-20 flex-col h-[100vh] bg-white">
+      <div className="flex h-[100vh] w-full flex-col bg-white px-20">
         {/* Header */}
-        <div className="flex justify-between items-center p-6">
+        <div className="flex items-center justify-between p-6">
           {isNewChat && (
             <h2 className="text-xl font-normal">Hi, Welcome Sam! 👋</h2>
           )}
           <div className={`${isNewChat ? "" : "ml-auto"}`}>
             <button
               onClick={handleNewQuery}
-              className="px-4 py-2 bg-mygradient1 text-white rounded-lg hover:bg-blue-700"
+              className="rounded-lg bg-mygradient1 px-4 py-2 text-white hover:bg-blue-700"
             >
               + New Query
             </button>
@@ -58,16 +58,16 @@ const ChatArea = () => {
 
         {/* Chat Area */}
         {isNewChat ? (
-          <div className="flex-1 flex flex-col justify-center items-center px-4 -mt-20">
-            <div className="text-center space-y-8 max-w-xl w-full">
-              <h1 className="text-2xl font-semibold text-[#0A2540] mb-8">
+          <div className="-mt-20 flex flex-1 flex-col items-center justify-center px-4">
+            <div className="w-full max-w-xl space-y-8 text-center">
+              <h1 className="mb-8 text-2xl font-semibold text-[#0A2540]">
                 What can I help with?
               </h1>
               <div className="relative w-full">
                 <input
                   type="text"
                   placeholder="Enter your message or upload a file..."
-                  className="w-full p-4 pr-24 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 shadow-sm"
+                  className="w-full rounded-lg border border-gray-200 p-4 pr-24 shadow-sm focus:border-blue-500 focus:outline-none"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && e.target.value.trim()) {
                       handleSendMessage({
@@ -90,18 +90,18 @@ const ChatArea = () => {
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex items-start gap-2 mb-4 ${
+                  className={`mb-4 flex items-start gap-2 ${
                     message.sender === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
                   {message.sender === "ai" && (
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0" />
+                    <div className="h-8 w-8 flex-shrink-0 rounded-full bg-blue-100" />
                   )}
                   <div
-                    className={`p-4 rounded-2xl max-w-[80%] ${
+                    className={`max-w-[80%] rounded-2xl p-4 ${
                       message.sender === "user"
-                        ? "bg-[#0057FF] text-white rounded-br-none"
-                        : "bg-[#F4F4F9] text-[#303841] rounded-bl-none"
+                        ? "rounded-br-none bg-[#0057FF] text-white"
+                        : "rounded-bl-none bg-[#F4F4F9] text-[#303841]"
                     }`}
                   >
                     {message.file ? (
@@ -124,12 +124,12 @@ const ChatArea = () => {
             </div>
 
             {/* Input Area when in chat mode */}
-            <div className="p-4  border-gray-200">
-              <div className="max-w-4xl mx-auto relative">
+            <div className="border-gray-200 p-4">
+              <div className="relative mx-auto max-w-4xl">
                 <input
                   type="text"
                   placeholder="Enter your message or upload a file..."
-                  className="w-full p-4 pr-24 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+                  className="w-full rounded-lg border border-gray-300 p-4 pr-24 focus:border-blue-500 focus:outline-none"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && e.target.value.trim()) {
                       handleSendMessage({
