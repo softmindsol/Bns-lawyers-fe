@@ -3,28 +3,31 @@ import CoverImage from "../../assets/law.png";
 import Lines from "../../assets/bglines.png";
 import Logo from "../../assets/logo.png";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { SignInSchema } from "../../schema/user.schema";
 import { RiLockPasswordFill } from "react-icons/ri";
+import useAuthStore from "../../../stores/authStore";
+
+const loginFields = [
+  {
+    id: "email",
+    label: "Email Address",
+    type: "email",
+    placeholder: "example@gmail.com",
+    icon: <MdEmail />,
+  },
+  {
+    id: "password",
+    label: "Password",
+    type: "password",
+    placeholder: "********",
+    icon: <RiLockPasswordFill />,
+  },
+];
 
 const SignIn = () => {
-  const loginFields = [
-    {
-      id: "email",
-      label: "New Password",
-      type: "email",
-      placeholder: "example@gmail.com",
-      icon: <RiLockPasswordFill />,
-    },
-    {
-      id: "password",
-      label: "Confirm Password",
-      type: "password",
-      placeholder: "********",
-      icon: <RiLockPasswordFill />,
-    },
-  ];
-
+  const { login } = useAuthStore();
   return (
     <div
       className="flex min-h-screen items-center justify-center bg-[#ffffff] px-4 sm:px-6"
@@ -50,9 +53,16 @@ const SignIn = () => {
               <Formik
                 initialValues={{ email: "", password: "" }}
                 validationSchema={SignInSchema}
-                onSubmit={(values, { setSubmitting }) => {
-                  console.log(values);
-                  setSubmitting(false);
+                onSubmit={async (values, { setSubmitting }) => {
+                  try {
+                    setSubmitting(true);
+                    const response = await login(values);
+                    console.log("🚀 ~ onSubmit={ ~ response:", response);
+                  } catch (error) {
+                    console.error(error);
+                  } finally {
+                    setSubmitting(false);
+                  }
                 }}
               >
                 {({ isSubmitting }) => (

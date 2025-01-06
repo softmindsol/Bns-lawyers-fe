@@ -37,7 +37,16 @@ export const SignUpSchema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters long"),
   username: Yup.string()
     .required("Username is required")
-    .min(2, "Username must be at least 2 characters long"),
+    .min(2, "Username must be at least 2 characters long")
+    .max(20, "Username must not exceed 20 characters")
+    .matches(
+      /^[a-zA-Z0-9_]*$/,
+      "Username can only contain letters, numbers, and underscores",
+    )
+    .notOneOf(
+      ["admin", "root", "superuser", "superadmin"],
+      "This username is not allowed",
+    ),
   first_name: Yup.string()
     .required("First name is required")
     .min(2, "First name must be at least 2 characters long"),
