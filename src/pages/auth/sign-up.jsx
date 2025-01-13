@@ -2,13 +2,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import CoverImage from "../../assets/cover.png";
 import Lines from "../../assets/bglines.png";
 import Logo from "../../assets/logo.png";
-
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaArrowRightLong, FaMobileScreenButton } from "react-icons/fa6";
 import { SignUpSchema } from "../../schema/user.schema";
 import { FaUserAlt } from "react-icons/fa";
 import useAuthStore from "../../../stores/authStore";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const formFields = [
   {
@@ -42,6 +43,7 @@ const formFields = [
 ];
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const { registerUser } = useAuthStore();
   return (
     <div
@@ -77,7 +79,11 @@ const SignUp = () => {
                 onSubmit={async (values, { setSubmitting }) => {
                   try {
                     setSubmitting(true);
-                    await registerUser(values);
+                    const resp = await registerUser(values);
+                    if (resp?.status_code === 200) {
+                      Cookies.set("access_token", resp?.data?.access_token);
+                      navigate("/home");
+                    }
                   } catch (error) {
                     console.error(error);
                   } finally {
@@ -174,10 +180,10 @@ const SignUp = () => {
                       <div>
                         <button
                           type="submit"
-                          className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
+                          className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
                           disabled={isSubmitting}
                         >
-                          Sign up
+                          {isSubmitting ? "Signing up ..." : "Sign up"}
                           <FaArrowRightLong />
                         </button>
                       </div>

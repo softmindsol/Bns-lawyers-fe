@@ -1,14 +1,12 @@
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 const useAuthenticate = () => {
-  const userData = localStorage.getItem("user");
-  let parsedUserData = null;
-
-  if (userData) {
-    parsedUserData = JSON.parse(userData);
-  }
+  const access_token = Cookies.get("access_token") || "";
+  const decoded = jwtDecode(access_token) || {};
 
   return {
-    accessToken: parsedUserData?.accessToken || null,
-    userInfo: parsedUserData?.customer || null,
+    access_token,
+    decoded,
   };
 };
 

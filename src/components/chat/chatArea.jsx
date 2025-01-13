@@ -2,8 +2,10 @@ import { useState } from "react";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { IoMdAttach } from "react-icons/io";
 import Navbar from "../navbar/navbar";
+import useAuthStore from "../../../stores/authStore";
 
 const ChatArea = () => {
+  const { user = {} } = useAuthStore();
   const [messages, setMessages] = useState([]);
   const [isNewChat, setIsNewChat] = useState(true);
 
@@ -44,7 +46,9 @@ const ChatArea = () => {
         {/* Header */}
         <div className="flex items-center justify-between p-6">
           {isNewChat && (
-            <h2 className="text-xl font-normal">Hi, Welcome Sam! 👋</h2>
+            <h2 className="text-xl font-normal">
+              Hi, Welcome {user?.data?.first_name}! 👋
+            </h2>
           )}
           <div className={`${isNewChat ? "" : "ml-auto"}`}>
             <button
