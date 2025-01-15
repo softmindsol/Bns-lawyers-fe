@@ -90,7 +90,7 @@ const useAuthStore = create(
 
     // Action: User Info
     userInfo: async (id) => {
-      set({ loading: true, error: null });
+      set({ user: { loading: true, error: null } });
       try {
         const response = await http.get(`/users/${id}`);
         const data = response.data;

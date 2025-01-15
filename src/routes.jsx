@@ -1,17 +1,17 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
-import OtpVerification from "./pages/auth/OTP";
-import NewPassword from "./pages/auth/newPassword";
-import NotFound from "./pages/not-found";
-import ResetPassword from "./pages/auth/reset-password";
-
-const SignIn = lazy(() => import("./pages/auth/sign-in"));
-const SignUp = lazy(() => import("./pages/auth/sign-up"));
-const Packages = lazy(() => import("./pages/auth/packages"));
-const Home = lazy(() => import("./pages/home"));
-const PetitionForm = lazy(() => import("./pages/petition-form"));
-const PrepareContract = lazy(() => import("./pages/prepare-contract"));
-const ResetGenerate = lazy(() => import("./pages/auth/reset-generate"));
+export const OtpVerification = lazy(() => import("./pages/auth/OTP"));
+export const NewPassword = lazy(() => import("./pages/auth/newPassword"));
+export const NotFound = lazy(() => import("./pages/not-found"));
+export const ResetPassword = lazy(() => import("./pages/auth/reset-password"));
+export const PrivateRoute = lazy(() => import("./components/private-route"));
+export const SignIn = lazy(() => import("./pages/auth/sign-in"));
+export const SignUp = lazy(() => import("./pages/auth/sign-up"));
+export const Packages = lazy(() => import("./pages/auth/packages"));
+export const Home = lazy(() => import("./pages/home"));
+export const PetitionForm = lazy(() => import("./pages/petition-form"));
+export const PrepareContract = lazy(() => import("./pages/prepare-contract"));
+export const ResetGenerate = lazy(() => import("./pages/auth/reset-generate"));
 
 const router = createBrowserRouter([
   {
@@ -32,19 +32,35 @@ const router = createBrowserRouter([
   },
   {
     path: "/pricing-plan",
-    element: <Packages />,
+    element: (
+      <PrivateRoute>
+        <Packages />,
+      </PrivateRoute>
+    ),
   },
   {
     path: "/home",
-    element: <Home />,
+    element: (
+      <PrivateRoute>
+        <Home />,
+      </PrivateRoute>
+    ),
   },
   {
     path: "/petition-form",
-    element: <PetitionForm />,
+    element: (
+      <PrivateRoute>
+        <PetitionForm />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/prepare-contract",
-    element: <PrepareContract />,
+    element: (
+      <PrivateRoute>
+        <PrepareContract />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/otp-verification",

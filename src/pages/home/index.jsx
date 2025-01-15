@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Sidebar from "../../components/sidebar/sidebar";
 import ChatArea from "../../components/chat/chatArea";
-import SettingsPanel from "../../components/settings-panel/settingsPanel";
 import {
   DarkModeProvider,
   useDarkMode,
