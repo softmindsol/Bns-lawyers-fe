@@ -6,14 +6,16 @@ import {
 } from "react-icons/ai";
 import Logo from "../../assets/sidebarlogo.png";
 import shuttle from "../../assets/shuttle.png";
+import { NavLink, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
-  const [selected, setSelected] = useState("Home");
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
 
+  const location = useLocation();
+  const isShareFeedbackActive = showFeedback;
+
   const handleFeedbackClick = () => {
-    setSelected("Share Feedback");
     setShowFeedback(!showFeedback);
   };
 
@@ -26,14 +28,14 @@ const Sidebar = () => {
   const menuItems = [
     { label: "Home", icon: <AiOutlineHome size={20} />, link: "/home" },
     {
-      label: "Getting Started",
+      label: "Petition Form",
       icon: <AiOutlineFileText size={20} />,
-      link: "#",
+      link: "/petition-form",
     },
     {
       label: "Prepare Contract",
       icon: <AiOutlineFileText size={20} />,
-      link: "#",
+      link: "/prepare-contract",
     },
   ];
 
@@ -49,39 +51,40 @@ const Sidebar = () => {
         <ul className="space-y-2">
           {menuItems.map((item, index) => (
             <li key={index}>
-              <a
-                href={item.link}
-                onClick={() => setSelected(item.label)}
+              <NavLink
+                to={item.link}
                 className={`flex items-center space-x-3 rounded-lg p-2 ${
-                  selected === item.label
-                    ? "bg-[#0057FF] text-white"
-                    : "text-[#0A2540] hover:bg-gray-100"
+                  isShareFeedbackActive
+                    ? "text-[#0A2540] hover:bg-gray-100"
+                    : location.pathname === item.link
+                      ? "bg-[#0057FF] text-white"
+                      : "text-[#0A2540] hover:bg-gray-100"
                 }`}
+                onClick={() => setShowFeedback(false)}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </a>
+              </NavLink>
             </li>
           ))}
 
           <li>
             <div className="space-y-2">
-              <a
-                href="#"
-                onClick={handleFeedbackClick}
-                className={`flex items-center space-x-3 rounded-lg p-2 ${
-                  selected === "Share Feedback"
+              <button
+                className={`flex w-full items-center space-x-3 rounded-lg p-2 ${
+                  isShareFeedbackActive
                     ? "bg-[#0057FF] text-white"
                     : "text-[#0A2540] hover:bg-gray-100"
                 }`}
+                onClick={handleFeedbackClick}
               >
                 <AiOutlineShareAlt size={20} />
                 <span>Share Feedback</span>
-              </a>
+              </button>
 
               <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  showFeedback
+                  isShareFeedbackActive
                     ? "max-h-[300px] opacity-100"
                     : "max-h-0 opacity-0"
                 }`}
@@ -110,11 +113,11 @@ const Sidebar = () => {
         <a
           href="#"
           className={`flex items-center space-x-3 rounded-lg ${
-            selected === "Upgrade Plan"
+            location.pathname === "Upgrade Plan"
               ? "bg-[#0057FF] text-white"
               : "text-[#0A2540] hover:bg-gray-100"
           }`}
-          onClick={() => setSelected("Upgrade Plan")}
+          onClick={() => setShowFeedback(false)}
         >
           <div>
             <img src={shuttle} alt="Shuttle" />

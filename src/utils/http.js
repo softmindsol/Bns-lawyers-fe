@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const http = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -6,11 +7,10 @@ const http = axios.create({
 
 http.interceptors.request.use(
   (config) => {
-    const userData = localStorage.getItem("user");
-    const accessToken = userData ? JSON.parse(userData).accessToken : null;
+    const access_token = Cookies.get("access_token");
 
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    if (access_token) {
+      config.headers.Authorization = `Bearer ${access_token}`;
     }
 
     if (config.isMultipart) {
