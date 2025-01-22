@@ -5,15 +5,13 @@ import {
   AiOutlineShareAlt,
 } from "react-icons/ai";
 import Logo from "../../assets/sidebarlogo.png";
-import shuttle from "../../assets/shuttle.png";
 import { NavLink, useLocation } from "react-router-dom";
+import UpgradePlan from "./upgrade-plan";
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, onClose }) => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [feedback, setFeedback] = useState("");
-
   const location = useLocation();
-  const isShareFeedbackActive = showFeedback;
 
   const handleFeedbackClick = () => {
     setShowFeedback(!showFeedback);
@@ -40,8 +38,12 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className="mx-6 my-6 flex h-screen w-72 flex-col bg-white shadow-xl">
-      <div className="border-b p-2">
+    <div
+      className={`fixed left-0 top-0 z-50 h-screen w-72 transform bg-white shadow-xl transition-transform duration-300 lg:static lg:translate-x-0 ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      <div className="border-b p-4">
         <div className="flex items-center justify-center">
           <img src={Logo} alt="Logo" />
         </div>
@@ -54,13 +56,11 @@ const Sidebar = () => {
               <NavLink
                 to={item.link}
                 className={`flex items-center space-x-3 rounded-lg p-2 ${
-                  isShareFeedbackActive
-                    ? "text-[#0A2540] hover:bg-gray-100"
-                    : location.pathname === item.link
-                      ? "bg-[#0057FF] text-white"
-                      : "text-[#0A2540] hover:bg-gray-100"
+                  location.pathname === item.link
+                    ? "bg-[#0057FF] text-white"
+                    : "text-[#0A2540] hover:bg-gray-100"
                 }`}
-                onClick={() => setShowFeedback(false)}
+                onClick={onClose}
               >
                 {item.icon}
                 <span>{item.label}</span>
@@ -72,7 +72,7 @@ const Sidebar = () => {
             <div className="space-y-2">
               <button
                 className={`flex w-full items-center space-x-3 rounded-lg p-2 ${
-                  isShareFeedbackActive
+                  showFeedback
                     ? "bg-[#0057FF] text-white"
                     : "text-[#0A2540] hover:bg-gray-100"
                 }`}
@@ -84,7 +84,7 @@ const Sidebar = () => {
 
               <div
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  isShareFeedbackActive
+                  showFeedback
                     ? "max-h-[300px] opacity-100"
                     : "max-h-0 opacity-0"
                 }`}
@@ -98,7 +98,7 @@ const Sidebar = () => {
                   />
                   <button
                     onClick={handleSubmit}
-                    className="absolute bottom-3 right-4 rounded-md bg-mygradient1 px-4 py-2 text-[14px] text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                    className="absolute bottom-3 right-4 rounded-md bg-mygradient1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                   >
                     Submit
                   </button>
@@ -108,30 +108,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </nav>
-
-      <div className="mx-2 my-4 rounded-[6px] border-t bg-[#F4F4F9] px-4 py-2">
-        <a
-          href="#"
-          className={`flex items-center space-x-3 rounded-lg ${
-            location.pathname === "Upgrade Plan"
-              ? "bg-[#0057FF] text-white"
-              : "text-[#0A2540] hover:bg-gray-100"
-          }`}
-          onClick={() => setShowFeedback(false)}
-        >
-          <div>
-            <img src={shuttle} alt="Shuttle" />
-          </div>
-          <div>
-            <h1 className="text-[16px] font-medium text-[#0A2540]">
-              Upgrade Plan
-            </h1>
-            <span className="text-[10px] font-normal text-textgray">
-              More access to the best plans
-            </span>
-          </div>
-        </a>
-      </div>
+      <UpgradePlan setShowFeedback={() => setShowFeedback(false)} />
     </div>
   );
 };

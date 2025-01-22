@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Sidebar from "../../components/sidebar/sidebar";
+import { useState } from "react";
 import { FaCheck, FaChevronDown } from "react-icons/fa6";
+import Layout from "../../layout";
 
 const PetitionForm = () => {
   const [selectedType, setSelectedType] = useState("");
@@ -168,38 +168,38 @@ const PetitionForm = () => {
       case "text":
         return (
           <div key={field.label}>
-            <label className="block text-sm text-[18px] font-medium mb-2">
+            <label className="mb-2 block text-[18px] text-sm font-medium">
               {field.label}:
             </label>
             <input
               type="text"
               placeholder={field.placeholder}
-              className="w-full px-3 py-2 border border-[#CCCCCC] rounded-md"
+              className="w-full rounded-md border border-[#CCCCCC] px-3 py-2"
             />
           </div>
         );
       case "textarea":
         return (
           <div key={field.label}>
-            <label className="block text-sm text-[18px] font-medium mb-2">
+            <label className="mb-2 block text-[18px] text-sm font-medium">
               {field.label}:
             </label>
             <textarea
               placeholder={field.placeholder}
-              className="w-full p-2 border border-[#cccc] rounded-md min-h-[70px]"
+              className="min-h-[70px] w-full rounded-md border border-[#cccc] p-2"
             ></textarea>
           </div>
         );
       case "date":
         return (
           <div key={field.label}>
-            <label className="block text-sm text-[18px] font-medium mb-2">
+            <label className="mb-2 block text-[18px] text-sm font-medium">
               {field.label}:
             </label>
             <input
               type="date"
               placeholder={field.placeholder}
-              className="w-full px-3 py-2 border border-[#CCCCCC] rounded-md"
+              className="w-full rounded-md border border-[#CCCCCC] px-3 py-2"
             />
           </div>
         );
@@ -215,7 +215,7 @@ const PetitionForm = () => {
     return (
       <div className="space-y-6">
         {petitionForm?.fields?.map(renderField)}
-        <button className="px-6 bg-[#0057ff] text-white py-2 rounded hover:bg-orange-600">
+        <button className="rounded bg-[#0057ff] px-6 py-2 text-white hover:bg-orange-600">
           {petitionForm.buttonText}
         </button>
       </div>
@@ -223,17 +223,16 @@ const PetitionForm = () => {
   };
 
   return (
-    <div className="grid grid-cols-[0fr_5fr]">
-      <Sidebar />
-      <div className="mx-20 bg-white shadow-lg px-20 py-12 rounded-md my-20">
-        <h1 className="text-[24px] text-[#0A2540] mb-5">
+    <Layout>
+      <div className="mx-20 my-20 rounded-md bg-white px-20 py-12 shadow-lg">
+        <h1 className="mb-5 text-[24px] text-[#0A2540]">
           Select Petition Type
         </h1>
         <div className="space-y-6">
           <div className="relative">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-full flex items-center justify-between px-4 py-4 bg-mygradient1 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors duration-300"
+              className="flex w-full items-center justify-between rounded-lg bg-mygradient1 px-4 py-4 text-white shadow-md transition-colors duration-300 hover:bg-blue-700"
             >
               {selectedType || "Select Petition Type"}
               <FaChevronDown
@@ -244,7 +243,7 @@ const PetitionForm = () => {
             </button>
 
             {isOpen && (
-              <div className="absolute top-full mt-1 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto">
+              <div className="absolute top-full z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg">
                 {Object.keys(petitionForms)?.map((type) => (
                   <div
                     key={type}
@@ -252,12 +251,12 @@ const PetitionForm = () => {
                       setSelectedType(type);
                       setIsOpen(false);
                     }}
-                    className="px-4 py-2 hover:bg-blue-50 cursor-pointer flex items-center justify-between group"
+                    className="group flex cursor-pointer items-center justify-between px-4 py-2 hover:bg-blue-50"
                   >
                     <span
                       className={`${
                         selectedType === type
-                          ? "text-blue-600 font-semibold"
+                          ? "font-semibold text-blue-600"
                           : "text-gray-700"
                       }`}
                     >
@@ -274,7 +273,7 @@ const PetitionForm = () => {
           {renderForm()}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

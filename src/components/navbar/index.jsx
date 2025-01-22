@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthenticate from "../../hooks/useAuthenticate";
 
-const Navbar = () => {
+const Navbar = ({ onMenuClick }) => {
   const { logout, userInfo } = useAuthStore();
   const { decoded } = useAuthenticate();
   const navigate = useNavigate();
@@ -22,7 +22,10 @@ const Navbar = () => {
     <nav className="conteiner mx-8 my-4 rounded-md border-gray-200 bg-white px-4 py-2 shadow-md">
       <div className="flex items-center justify-between">
         {/* Left side menu button */}
-        <button className="rounded-lg p-2 hover:bg-gray-100">
+        <button
+          className="rounded-lg p-2 hover:bg-gray-100"
+          onClick={onMenuClick}
+        >
           <BiMenu className="h-5 w-5 text-gray-600" />
         </button>
 

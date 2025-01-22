@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { FaRegFilePdf } from "react-icons/fa6";
 import { IoMdAttach } from "react-icons/io";
-import Navbar from "../navbar/navbar";
 import useAuthStore from "../../../stores/authStore";
 
 const ChatArea = () => {
@@ -41,12 +40,11 @@ const ChatArea = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="flex h-[100vh] w-full flex-col bg-white px-20">
         {/* Header */}
         <div className="flex items-center justify-between p-6">
           {isNewChat && (
-            <h2 className="flex items-center text-xl font-normal gap-2">
+            <h2 className="flex items-center gap-2 text-xl font-normal">
               Hi, Welcome{" "}
               {loading ? (
                 <div className="skeleton-loader h-5 w-20 rounded bg-gray-200"></div>
