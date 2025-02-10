@@ -3,8 +3,11 @@ import { BsCheckLg } from "react-icons/bs";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { FaFire } from "react-icons/fa6";
 import { RiRocketFill } from "react-icons/ri";
+import usePlanStore from "../../../stores/plan.store";
+import { useEffect } from "react";
 
 const Packages = () => {
+  const { getAllPlans, plans } = usePlanStore();
   const pricingPlan = [
     {
       package: "Basic Plan",
@@ -53,6 +56,10 @@ const Packages = () => {
       recommended: false,
     },
   ];
+
+  useEffect(() => {
+    getAllPlans();
+  }, []);
 
   return (
     <Layout>

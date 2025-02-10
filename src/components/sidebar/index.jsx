@@ -7,20 +7,14 @@ import {
 import Logo from "../../assets/sidebarlogo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import UpgradePlan from "./upgrade-plan";
+import FeedBack from "./feedback";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const [showFeedback, setShowFeedback] = useState(false);
-  const [feedback, setFeedback] = useState("");
   const location = useLocation();
 
   const handleFeedbackClick = () => {
     setShowFeedback(!showFeedback);
-  };
-
-  const handleSubmit = () => {
-    console.log("Feedback submitted:", feedback);
-    setFeedback("");
-    setShowFeedback(false);
   };
 
   const menuItems = [
@@ -89,20 +83,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                     : "max-h-0 opacity-0"
                 }`}
               >
-                <div className="relative mt-6 px-2">
-                  <textarea
-                    value={feedback}
-                    onChange={(e) => setFeedback(e.target.value)}
-                    placeholder="Share your feedback here..."
-                    className="h-[247px] w-full resize-none rounded-lg border border-[#CCCCCC] bg-[#F9F9FC] p-3 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                  />
-                  <button
-                    onClick={handleSubmit}
-                    className="absolute bottom-3 right-4 rounded-md bg-mygradient1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
-                  >
-                    Submit
-                  </button>
-                </div>
+                <FeedBack {...setShowFeedback} />
               </div>
             </div>
           </li>

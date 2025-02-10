@@ -1,5 +1,5 @@
 import { BiMenu, BiUser } from "react-icons/bi";
-import useAuthStore from "../../../stores/authStore";
+import useAuthStore from "../../../stores/auth.store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthenticate from "../../hooks/useAuthenticate";
@@ -19,9 +19,8 @@ const Navbar = ({ onMenuClick }) => {
   }, [userInfo, decoded?.user_id]);
 
   return (
-    <nav className="conteiner mx-8 my-4 rounded-md border-gray-200 bg-white px-4 py-2 shadow-md">
+    <nav className="conteiner mx-2 my-4 rounded-md border-gray-200 bg-white px-4 py-2 shadow-md md:mx-8">
       <div className="flex items-center justify-between">
-        {/* Left side menu button */}
         <button
           className="rounded-lg p-2 hover:bg-gray-100"
           onClick={onMenuClick}
@@ -29,17 +28,14 @@ const Navbar = ({ onMenuClick }) => {
           <BiMenu className="h-5 w-5 text-gray-600" />
         </button>
 
-        {/* Right side items */}
-        <div className="flex items-center space-x-4">
-          {/* Info circle icon */}
-          <button className="rounded-full p-2 hover:bg-gray-100">
+        <div className="flex items-center space-x-1 md:space-x-4">
+          <button className="rounded-full p-1 hover:bg-gray-100">
             <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-600">
               <span className="text-sm font-semibold text-gray-600">i</span>
             </div>
           </button>
 
-          {/* Share icon */}
-          <button className="rounded-full p-2 hover:bg-gray-100">
+          <button className="rounded-full p-1 hover:bg-gray-100">
             <svg
               className="h-5 w-5 text-gray-600"
               viewBox="0 0 24 24"
@@ -52,7 +48,7 @@ const Navbar = ({ onMenuClick }) => {
           </button>
 
           {/* Form icon */}
-          <button className="rounded-full p-2 hover:bg-gray-100">
+          <button className="rounded-full p-1 hover:bg-gray-100">
             <svg
               className="h-5 w-5 text-gray-600"
               viewBox="0 0 24 24"

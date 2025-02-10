@@ -7,7 +7,7 @@ import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { SignInSchema } from "../../schema/user.schema";
 import { RiLockPasswordFill } from "react-icons/ri";
-import useAuthStore from "../../../stores/authStore";
+import useAuthStore from "../../../stores/auth.store";
 import Cookies from "js-cookie";
 
 const loginFields = [
