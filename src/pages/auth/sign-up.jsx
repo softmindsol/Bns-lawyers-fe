@@ -7,9 +7,9 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { FaArrowRightLong, FaMobileScreenButton } from "react-icons/fa6";
 import { SignUpSchema } from "../../schema/user.schema";
 import { FaUserAlt } from "react-icons/fa";
-import useAuthStore from "../../../stores/authStore";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import useAuthStore from "../../stores/auth.store";
 
 const formFields = [
   {

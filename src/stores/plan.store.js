@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { toast } from "sonner";
-import http from "../src/utils/http";
+import http from "../utils/http";
 import { devtools } from "zustand/middleware";
 
 const usePlanStore = create(

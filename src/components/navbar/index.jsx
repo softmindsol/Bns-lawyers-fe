@@ -1,8 +1,8 @@
 import { BiMenu, BiUser } from "react-icons/bi";
-import useAuthStore from "../../../stores/auth.store";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthenticate from "../../hooks/useAuthenticate";
+import useAuthStore from "../../stores/auth.store";
 
 const Navbar = ({ onMenuClick }) => {
   const { logout, userInfo } = useAuthStore();

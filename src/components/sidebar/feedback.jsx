@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import useFeedbackStore from "../../../stores/feedback.store";
+import useFeedbackStore from "../../stores/feedback.store";
 
 const FeedBack = ({ setShowFeedback }) => {
   const { addFeedback } = useFeedbackStore();

@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import Cookies from "js-cookie";
-import http from "../src/utils/http";
 import { devtools } from "zustand/middleware";
 import { toast } from "sonner";
+import http from "../utils/http";
 
 const useAuthStore = create(
   devtools((set) => ({

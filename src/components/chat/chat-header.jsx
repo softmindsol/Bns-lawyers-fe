@@ -1,12 +1,12 @@
-import useAuthStore from "../../../stores/auth.store";
 import { useChat } from "../../hooks/useChat";
+import useAuthStore from "../../stores/auth.store";
 
 const ChatHeader = () => {
   const { user: { data: { first_name } = {}, loading } = {} } = useAuthStore();
   const { messages, resetChat } = useChat();
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-2 lg:p-6 mb-10">
+      <div className="mb-10 flex flex-wrap items-center justify-between gap-2 lg:p-6">
         {messages.length === 0 && (
           <h2 className="text-base font-normal lg:text-xl">
             Hi, Welcome
