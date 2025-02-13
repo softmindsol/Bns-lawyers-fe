@@ -40,11 +40,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/home",
-    element: (
-      <PrivateRoute>
-        <Home />,
-      </PrivateRoute>
-    ),
+    element: <Home />,
+    // element: (
+    //   <PrivateRoute>
+    //     <Home />,
+    //   </PrivateRoute>
+    // ),
   },
   {
     path: "/petition-form",

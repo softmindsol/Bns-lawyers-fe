@@ -1,12 +1,21 @@
 import { IoMdAttach } from "react-icons/io";
 import { useChat } from "../../hooks/useChat";
+import { FaRegStopCircle } from "react-icons/fa";
 
 const ChatInput = () => {
-  const { sendMessage } = useChat();
+  const { sendMessage, stopTyping, typing } = useChat();
 
   return (
     <>
       <div className="border-gray-200 p-4">
+        {typing && (
+          <button
+            className="fixed bottom-[120px] left-[56%] flex size-10 items-center justify-center rounded-full bg-gray-200 text-red-500 shadow-md transition-opacity duration-200 hover:bg-gray-300"
+            onClick={stopTyping}
+          >
+            <FaRegStopCircle />
+          </button>
+        )}
         <div className="relative mx-auto max-w-4xl">
           <input
             type="text"
