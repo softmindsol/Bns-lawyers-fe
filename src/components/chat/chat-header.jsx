@@ -3,7 +3,7 @@ import useAuthStore from "../../stores/auth.store";
 
 const ChatHeader = () => {
   const { user: { data: { first_name } = {}, loading } = {} } = useAuthStore();
-  const { messages, resetChat } = useChat();
+  const { messages, stopChat } = useChat();
   return (
     <>
       <div className="mb-10 flex flex-wrap items-center justify-between gap-2 lg:p-6">
@@ -20,7 +20,7 @@ const ChatHeader = () => {
         )}
         <div className={`${messages.length === 0 ? "" : "ml-auto"}`}>
           <button
-            onClick={resetChat}
+            onClick={stopChat}
             className="whitespace-nowrap rounded-lg bg-mygradient1 px-2 py-2 text-sm text-white hover:bg-blue-700 md:text-base lg:px-4"
           >
             + New Query
