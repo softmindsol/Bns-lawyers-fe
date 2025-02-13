@@ -6,7 +6,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { ResetGenerateSchema } from "../../schema/user.schema";
 import { MdEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import useAuthStore from "../../../stores/authStore";
+import useAuthStore from "../../stores/auth.store";
 
 const loginFields = [
   {

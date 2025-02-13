@@ -1,12 +1,13 @@
-import React from "react";
+import Layout from "../../layout";
 import { BsCheckLg } from "react-icons/bs";
 import { FaRegStar, FaStar } from "react-icons/fa";
 import { FaFire } from "react-icons/fa6";
 import { RiRocketFill } from "react-icons/ri";
-import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/navbar";
+import { useEffect } from "react";
+import usePlanStore from "../../stores/plan.store";
 
 const Packages = () => {
+  const { getAllPlans, plans } = usePlanStore();
   const pricingPlan = [
     {
       package: "Basic Plan",
@@ -56,93 +57,95 @@ const Packages = () => {
     },
   ];
 
+  useEffect(() => {
+    getAllPlans();
+  }, []);
+
   return (
-    <div className="grid grid-cols-[0fr_5fr]">
-      <Sidebar />
+    <Layout>
       <div>
-      <Navbar/>
-      <div className="min-h-screen px-4 sm:px-6 my-24">
-   
-   <h1 className="text-[#0A2540] text-[24px] mb-2 font-semibold">
-     Upgrade your plan
-   </h1>
-   <span className="text-[16px] font-normal text-[#696969]">
-     {" "}
-     Affordable Plans for Every Need! Choose from flexible options tailored
-     to fit your budget and goals.{" "}
-   </span>
-   <div className="container mx-auto pr-20">
-     <div className="grid lg:grid-cols-3 pb-10 gap-6">
-       {pricingPlan.map((item, index) => (
-         <div
-           key={index}
-           className={`bg-white shadow-lg rounded-2xl overflow-hidden relative ${
-             item.mostPopular
-               ? "border-4 border-[#0A2540] scale-105"
-               : item.recommended
-               ? "border-2 border-[#0A2540]"
-               : "border-2 border-transparent hover:border-[#0A2540]"
-           }`}
-         >
-           {item.mostPopular && (
-             <div className="absolute top-1 left-1 bg-[#e5e4e2] text-[#0a2540] px-3 py-1 rounded-full font-medium text-sm flex items-center gap-2">
-               <FaFire />
-               Most Popular
-             </div>
-           )}
-           {item.recommended && (
-             <div className="absolute top-1 left-1 bg-[#ffbf00] text-white px-3  py-1 rounded-full font-medium text-sm flex items-center gap-2">
-               <RiRocketFill />
-               Recommended
-             </div>
-           )}
-           <div
-             className={`py-8 px-6 text-center ${
-               item.mostPopular || item.recommended
-                 ? "bg-[#0A2540] text-white"
-                 : "bg-[#d1d1d1] text-[#0A2540]"
-             }`}
-           >
-             <h2 className="text-2xl font-bold mb-2">{item.package}</h2>
-             <div className="text-5xl font-bold mb-4">{item.price}</div>
-             <button
-               className={`text-sm font-medium py-3 px-6 rounded-full transition-colors ${
-                 item.mostPopular || item.recommended
-                   ? "bg-white text-[#0A2540] hover:bg-[#0A2540] border  hover:border hover:border-white  hover:text-white"
-                   : "bg-[#0A2540]rounded-full border bg-[#0A2540] text-white hover:bg-white hover:border hover:border-[#0A2540] hover:text-[#0A2540]"
-               }`}
-             >
-               Get Started
-             </button>
-           </div>
-           <div className="p-6">
-             <h3 className="text-lg font-bold mb-4">What you will get:</h3>
-             <ul className="space-y-3">
-               {item.featurelist.map((feature, index) => (
-                 <li key={index} className="flex items-center gap-3">
-                   <BsCheckLg className="text-green-500" />
-                   <span className="text-gray-600">{feature}</span>
-                 </li>
-               ))}
-             </ul>
-             <div className="flex justify-center mt-4">
-               {[...Array(5)].map((_, i) =>
-                 i < 4 ? (
-                   <FaStar key={i} className="text-yellow-400 mr-1" />
-                 ) : (
-                   <FaRegStar key={i} className="text-yellow-400 mr-1" />
-                 )
-               )}
-             </div>
-           </div>
-         </div>
-       ))}
-     </div>
-   </div>
- </div>
+        <div className="my-24 min-h-screen px-4 sm:px-6">
+          <h1 className="mb-2 text-[24px] font-semibold text-[#0A2540]">
+            Upgrade your plan
+          </h1>
+          <span className="text-[16px] font-normal text-[#696969]">
+            {" "}
+            Affordable Plans for Every Need! Choose from flexible options
+            tailored to fit your budget and goals.{" "}
+          </span>
+          <div className="container mx-auto pr-20">
+            <div className="grid gap-6 pb-10 lg:grid-cols-3">
+              {pricingPlan.map((item, index) => (
+                <div
+                  key={index}
+                  className={`relative overflow-hidden rounded-2xl bg-white shadow-lg ${
+                    item.mostPopular
+                      ? "scale-105 border-4 border-[#0A2540]"
+                      : item.recommended
+                        ? "border-2 border-[#0A2540]"
+                        : "border-2 border-transparent hover:border-[#0A2540]"
+                  }`}
+                >
+                  {item.mostPopular && (
+                    <div className="absolute left-1 top-1 flex items-center gap-2 rounded-full bg-[#e5e4e2] px-3 py-1 text-sm font-medium text-[#0a2540]">
+                      <FaFire />
+                      Most Popular
+                    </div>
+                  )}
+                  {item.recommended && (
+                    <div className="absolute left-1 top-1 flex items-center gap-2 rounded-full bg-[#ffbf00] px-3 py-1 text-sm font-medium text-white">
+                      <RiRocketFill />
+                      Recommended
+                    </div>
+                  )}
+                  <div
+                    className={`px-6 py-8 text-center ${
+                      item.mostPopular || item.recommended
+                        ? "bg-[#0A2540] text-white"
+                        : "bg-[#d1d1d1] text-[#0A2540]"
+                    }`}
+                  >
+                    <h2 className="mb-2 text-2xl font-bold">{item.package}</h2>
+                    <div className="mb-4 text-5xl font-bold">{item.price}</div>
+                    <button
+                      className={`rounded-full px-6 py-3 text-sm font-medium transition-colors ${
+                        item.mostPopular || item.recommended
+                          ? "border bg-white text-[#0A2540] hover:border hover:border-white hover:bg-[#0A2540] hover:text-white"
+                          : "bg-[#0A2540]rounded-full border bg-[#0A2540] text-white hover:border hover:border-[#0A2540] hover:bg-white hover:text-[#0A2540]"
+                      }`}
+                    >
+                      Get Started
+                    </button>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="mb-4 text-lg font-bold">
+                      What you will get:
+                    </h3>
+                    <ul className="space-y-3">
+                      {item.featurelist.map((feature, index) => (
+                        <li key={index} className="flex items-center gap-3">
+                          <BsCheckLg className="text-green-500" />
+                          <span className="text-gray-600">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-4 flex justify-center">
+                      {[...Array(5)].map((_, i) =>
+                        i < 4 ? (
+                          <FaStar key={i} className="mr-1 text-yellow-400" />
+                        ) : (
+                          <FaRegStar key={i} className="mr-1 text-yellow-400" />
+                        ),
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
-    
-    </div>
+    </Layout>
   );
 };
 

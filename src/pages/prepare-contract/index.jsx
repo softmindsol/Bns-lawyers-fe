@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Sidebar from "../../components/sidebar/sidebar";
+import Layout from "../../layout";
 import { FaCheck, FaChevronDown } from "react-icons/fa6";
 
 const PrepareContract = () => {
@@ -323,8 +323,7 @@ const PrepareContract = () => {
   };
 
   return (
-    <div className="grid grid-cols-[0fr_5fr]">
-      <Sidebar />
+    <Layout>
       <div className="mx-20 my-20 rounded-md bg-white px-20 py-12 shadow-lg">
         <div>
           <h1 className="mb-5 text-[24px] text-[#0A2540]">
@@ -385,7 +384,7 @@ const PrepareContract = () => {
           {renderContractForm()}
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 
