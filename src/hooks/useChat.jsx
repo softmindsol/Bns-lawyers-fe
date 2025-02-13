@@ -1,5 +1,4 @@
-import { createContext, useContext, useState, useRef } from "react";
-import axios from "axios";
+import { createContext, useContext, useState } from "react";
 import { OPEN_API_KEY, OPEN_API_URL } from "../utils/config";
 
 const ChatContext = createContext();
@@ -8,7 +7,6 @@ export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
   const [typing, setTyping] = useState(false);
   const [typingMessage, setTypingMessage] = useState("");
-  const typingIntervalRef = useRef(null);
 
   const sendMessage = async ({ text, file }) => {
     setMessages((prev) => [
@@ -21,40 +19,59 @@ export const ChatProvider = ({ children }) => {
       setTypingMessage("");
 
       try {
-        const response = await axios.post(
-          OPEN_API_URL,
-          {
+        const response = await fetch(OPEN_API_URL, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${OPEN_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             model: "gpt-4",
             messages: [{ role: "user", content: text }],
             temperature: 0.7,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${OPEN_API_KEY}`,
-              "Content-Type": "application/json",
-            },
-          },
-        );
+            stream: true,
+          }),
+        });
 
-        const aiMessage =
-          response.data.choices[0]?.message?.content ||
-          "Sorry, I didn't understand that.";
+        if (!response.body) {
+          throw new Error("No response body");
+        }
 
-        let index = 0;
-        typingIntervalRef.current = setInterval(() => {
-          if (index < aiMessage.length) {
-            setTypingMessage((prev) => prev + aiMessage[index]);
-            index++;
-          } else {
-            clearInterval(typingIntervalRef.current);
-            setTyping(false);
-            setTypingMessage("");
-            setMessages((prev) => [
-              ...prev,
-              { id: Date.now() + 1, text: aiMessage, sender: "ai" },
-            ]);
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let accumulatedMessage = "";
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+
+          const chunk = decoder.decode(value, { stream: true });
+          const lines = chunk.split("\n");
+
+          for (const line of lines) {
+            if (line.startsWith("data: ")) {
+              const jsonString = line.replace("data: ", "").trim();
+              if (jsonString === "[DONE]") break;
+
+              try {
+                const parsedData = JSON.parse(jsonString);
+                const newText = parsedData.choices?.[0]?.delta?.content || "";
+
+                accumulatedMessage += newText;
+                setTypingMessage(accumulatedMessage);
+              } catch (error) {
+                console.error("Error parsing stream chunk:", error);
+              }
+            }
           }
-        }, 50);
+        }
+
+        setMessages((prev) => [
+          ...prev,
+          { id: Date.now(), text: accumulatedMessage, sender: "ai" },
+        ]);
+        setTyping(false);
+        setTypingMessage("");
       } catch (error) {
         console.error("OpenAI API Error:", error);
         setTyping(false);
@@ -70,18 +87,15 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
-  const stopTyping = () => {
-    if (typingIntervalRef.current) {
-      clearInterval(typingIntervalRef.current);
-      typingIntervalRef.current = null;
-    }
+  const stopChat = () => {
+    setMessages([]);
     setTyping(false);
     setTypingMessage("");
   };
 
   return (
     <ChatContext.Provider
-      value={{ messages, sendMessage, stopTyping, typing, typingMessage }}
+      value={{ messages, sendMessage, stopChat, typing, typingMessage }}
     >
       {children}
     </ChatContext.Provider>
