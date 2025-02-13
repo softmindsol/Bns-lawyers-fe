@@ -16,11 +16,12 @@ const ChatInput = () => {
             <FaRegStopCircle />
           </button>
         )}
-        <div className="relative mx-auto max-w-4xl">
+        <div className="flex justify-center">  
+        <div className="bottom-0 mb-8  mx-auto fixed max-w-4xl">
           <input
             type="text"
             placeholder="Enter your message or upload a file..."
-            className="w-full rounded-lg border border-gray-300 p-4 pr-24 focus:border-blue-500 focus:outline-none"
+            className=" rounded-lg lg:w-[600px] w-[200px] border border-gray-300 p-4 pr-24 focus:border-blue-500 focus:outline-none"
             onKeyDown={(e) => {
               if (e.key === "Enter" && e.target.value.trim()) {
                 sendMessage({ text: e.target.value.trim(), file: null });
@@ -31,6 +32,7 @@ const ChatInput = () => {
           <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
             <IoMdAttach />
           </button>
+        </div>
         </div>
       </div>
     </>

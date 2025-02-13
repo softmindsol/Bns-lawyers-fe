@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen flex-col lg:grid lg:grid-cols-[1fr_5fr]">
+    <div className="flex min-h-screen lg:fixed lg:top-0 flex-col lg:grid lg:grid-cols-[1fr_6fr]">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex flex-1 flex-col">
