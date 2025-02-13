@@ -27,14 +27,21 @@ export const ChatProvider = ({ children }) => {
         },
         body: JSON.stringify({
           model: "gpt-4",
-          messages: [{ role: "user", content: text }],
-          temperature: 0.7,
-          stream: true, // Streaming enabled
+          messages: [
+            {
+              role: "system",
+              content:
+                "Sen bir yapay zeka asistanısın ve Türk hukuku konusunda uzmanlaşmışsın. Tüm cevaplarını Türk hukukuna uygun olarak ver ve yalnızca Türkçe yanıtla.",
+            },
+            { role: "user", content: text },
+          ],
+          temperature: 0.3, // Daha güvenilir ve tutarlı cevaplar için
+          stream: true,
         }),
         signal,
       });
 
-      if (!response.ok) throw new Error("Failed to connect to API");
+      if (!response.ok) throw new Error("API'ye bağlanılamadı.");
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
@@ -46,7 +53,6 @@ export const ChatProvider = ({ children }) => {
 
         const chunk = decoder.decode(value, { stream: true });
 
-        // Extract only "content" from JSON
         const lines = chunk
           .split("\n")
           .map((line) => line.replace(/^data: /, "").trim())
@@ -61,7 +67,7 @@ export const ChatProvider = ({ children }) => {
               setTypingMessage(partialMessage);
             }
           } catch (error) {
-            console.error("Error parsing chunk:", error);
+            console.error("Yanıt ayrıştırma hatası:", error);
           }
         }
       }
@@ -74,12 +80,16 @@ export const ChatProvider = ({ children }) => {
       setTypingMessage("");
     } catch (error) {
       if (signal.aborted) {
-        console.log("Typing stopped manually.");
+        console.log("Yanıt manuel olarak durduruldu.");
       } else {
-        console.error("Streaming Error:", error);
+        console.error("Akış Hatası:", error);
         setMessages((prev) => [
           ...prev,
-          { id: Date.now(), text: "Error fetching response.", sender: "ai" },
+          {
+            id: Date.now(),
+            text: "Yanıt alınırken hata oluştu.",
+            sender: "ai",
+          },
         ]);
       }
       setTyping(false);
