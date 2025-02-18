@@ -8,10 +8,10 @@ const ChatHeader = () => {
     <>
       <div className="mb-10 flex flex-wrap items-center justify-between gap-2 lg:p-6">
         {messages.length === 0 && (
-          <h2 className="text-base font-normal lg:text-xl">
+          <h2 className="flex items-center gap-1 text-base font-normal lg:text-xl">
             Hi, Welcome
             {loading ? (
-              <div className="skeleton-loader h-5 w-20 rounded bg-gray-200"></div>
+              <div className="skeleton-loader inline-block h-7 w-20 rounded bg-gray-200"></div>
             ) : (
               <span> {first_name}!</span>
             )}

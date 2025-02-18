@@ -1,7 +1,25 @@
 import { createContext, useContext, useState, useRef } from "react";
-import { OPEN_API_KEY, OPEN_API_URL } from "../utils/config";
+import { BASE_URL, OPEN_API_KEY, OPEN_API_URL } from "../utils/config";
 
 const ChatContext = createContext();
+
+async function getLawsData(search) {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/yargitay/search/${encodeURIComponent(search)}`,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.current?.temperature_2m;
+  } catch (error) {
+    console.error("Failed to fetch laws data:", error);
+    throw error;
+  }
+}
 
 export const ChatProvider = ({ children }) => {
   const [messages, setMessages] = useState([]);
@@ -19,6 +37,9 @@ export const ChatProvider = ({ children }) => {
     const { signal } = abortControllerRef.current;
 
     try {
+      // Fetch legal data
+      const lawsData = await getLawsData(text);
+
       const response = await fetch(OPEN_API_URL, {
         method: "POST",
         headers: {
@@ -33,15 +54,15 @@ export const ChatProvider = ({ children }) => {
               content:
                 "Sen bir yapay zeka asistanısın ve Türk hukuku konusunda uzmanlaşmışsın. Tüm cevaplarını Türk hukukuna uygun olarak ver ve yalnızca Türkçe yanıtla.",
             },
-            { role: "user", content: text },
+            { role: "user", content: `${text} - Ek Bilgi: ${lawsData}` },
           ],
-          temperature: 0.3, // Daha güvenilir ve tutarlı cevaplar için
+          temperature: 0.3,
           stream: true,
         }),
         signal,
       });
 
-      if (!response.ok) throw new Error("API'ye bağlanılamadı.");
+      if (!response.ok) throw new Error("Yargıtay Sistemi aktif değil.");
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
@@ -67,7 +88,7 @@ export const ChatProvider = ({ children }) => {
               setTypingMessage(partialMessage);
             }
           } catch (error) {
-            console.error("Yanıt ayrıştırma hatası:", error);
+            console.error("Yargıtay Sistemi aktif değil.", error);
           }
         }
       }

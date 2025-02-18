@@ -62,12 +62,12 @@ const ChatList = ({ isDarkMode, setActiveChat }) => {
         </div>
 
         {chats
-          .filter(
+          ?.filter(
             (chat) =>
               chat.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
               chat.preview.toLowerCase().includes(searchQuery.toLowerCase()),
           )
-          .map((chat, index) => (
+          ?.map((chat, index) => (
             <ChatListItem
               key={chat.id}
               {...chat}
