@@ -3,6 +3,7 @@ import { typing_icon } from "../../assets";
 import { FiCopy } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "../../hooks/useChat";
+import ReactMarkdown from "react-markdown";
 
 const ChatList = () => {
   const { messages, typing, typingMessage } = useChat();
@@ -37,44 +38,6 @@ const ChatList = () => {
     navigator.clipboard.writeText(text);
     setCopiedMessageId(id);
     setTimeout(() => setCopiedMessageId(null), 2000);
-  };
-
-  const formatMessage = (text) => {
-    try {
-      const parsedJSON = JSON.parse(text);
-      return (
-        <pre className="rounded-md bg-gray-100 p-2 text-sm">
-          {JSON.stringify(parsedJSON, null, 2)}
-        </pre>
-      );
-    } catch (error) {
-      return text.split("\n").map((line, index) => {
-        if (/^[-•]\s/.test(line)) {
-          return (
-            <li key={index} className="ml-4 list-disc">
-              {formatInline(line.replace(/^[-•]\s/, ""))}
-            </li>
-          );
-        }
-        return (
-          <p key={index} className="mb-1">
-            {formatInline(line)}
-          </p>
-        );
-      });
-    }
-  };
-
-  const formatInline = (text) => {
-    return text.split(/(\*\*.*?\*\*|\*.*?\*)/).map((part, i) => {
-      if (/^\*\*(.*?)\*\*$/.test(part)) {
-        return <strong key={i}>{part.slice(2, -2)}</strong>;
-      }
-      if (/^\*(.*?)\*$/.test(part)) {
-        return <em key={i}>{part.slice(1, -1)}</em>;
-      }
-      return part;
-    });
   };
 
   return (
@@ -155,7 +118,7 @@ const ChatList = () => {
                 </a>
               ) : (
                 <div className="text-[14px] font-normal">
-                  {formatMessage(message?.text)}
+                  <ReactMarkdown>{message?.text}</ReactMarkdown>
                 </div>
               )}
 

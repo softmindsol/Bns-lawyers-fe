@@ -1,20 +1,14 @@
 import { createContext, useContext, useState, useRef } from "react";
-import { BASE_URL, OPEN_API_KEY, OPEN_API_URL } from "../utils/config";
+import http from "../utils/http";
 
 const ChatContext = createContext();
 
-async function getLawsData(search) {
+async function getLawsData(payload) {
   try {
-    const response = await fetch(
-      `${BASE_URL}/yargitay/search/${encodeURIComponent(search)}`,
-    );
+    const response = await http.post(`/chat/send`, payload);
+    const data = response.data;
 
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} - ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data.current?.temperature_2m;
+    return data?.response;
   } catch (error) {
     console.error("Failed to fetch laws data:", error);
     throw error;
@@ -37,65 +31,64 @@ export const ChatProvider = ({ children }) => {
     const { signal } = abortControllerRef.current;
 
     try {
-      // Fetch legal data
-      const lawsData = await getLawsData(text);
+      const lawsData = await getLawsData({ message: text });
 
-      const response = await fetch(OPEN_API_URL, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${OPEN_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gpt-4",
-          messages: [
-            {
-              role: "system",
-              content:
-                "Sen bir yapay zeka asistanısın ve Türk hukuku konusunda uzmanlaşmışsın. Tüm cevaplarını Türk hukukuna uygun olarak ver ve yalnızca Türkçe yanıtla.",
-            },
-            { role: "user", content: `${text} - Ek Bilgi: ${lawsData}` },
-          ],
-          temperature: 0.3,
-          stream: true,
-        }),
-        signal,
-      });
+      //   const response = await fetch(OPEN_API_URL, {
+      //     method: "POST",
+      //     headers: {
+      //       Authorization: `Bearer ${OPEN_API_KEY}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       model: "gpt-4",
+      //       messages: [
+      //         {
+      //           role: "system",
+      //           content:
+      //             "Sen bir yapay zeka asistanısın ve Türk hukuku konusunda uzmanlaşmışsın. Tüm cevaplarını Türk hukukuna uygun olarak ver ve yalnızca Türkçe yanıtla.",
+      //         },
+      //         { role: "user", content: `${text} - Ek Bilgi: ${lawsData}` },
+      //       ],
+      //       temperature: 0.3,
+      //       stream: true,
+      //     }),
+      //     signal,
+      //   });
 
-      if (!response.ok) throw new Error("Yargıtay Sistemi aktif değil.");
+      //   if (!response.ok) throw new Error("Yargıtay Sistemi aktif değil.");
 
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let partialMessage = "";
+      //   const reader = response.body.getReader();
+      //   const decoder = new TextDecoder();
+      //   let partialMessage = "";
 
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
+      //   while (true) {
+      //     const { value, done } = await reader.read();
+      //     if (done) break;
 
-        const chunk = decoder.decode(value, { stream: true });
+      //     const chunk = decoder.decode(value, { stream: true });
 
-        const lines = chunk
-          .split("\n")
-          .map((line) => line.replace(/^data: /, "").trim())
-          .filter((line) => line && line !== "[DONE]");
+      //     const lines = chunk
+      //       .split("\n")
+      //       .map((line) => line.replace(/^data: /, "").trim())
+      //       .filter((line) => line && line !== "[DONE]");
 
-        for (const line of lines) {
-          try {
-            const json = JSON.parse(line);
-            const content = json?.choices?.[0]?.delta?.content;
-            if (content) {
-              partialMessage += content;
-              setTypingMessage(partialMessage);
-            }
-          } catch (error) {
-            console.error("Yargıtay Sistemi aktif değil.", error);
-          }
-        }
-      }
+      //     for (const line of lines) {
+      //       try {
+      //         const json = JSON.parse(line);
+      //         const content = json?.choices?.[0]?.delta?.content;
+      //         if (content) {
+      //           partialMessage += content;
+      //           setTypingMessage(partialMessage);
+      //         }
+      //       } catch (error) {
+      //         console.error("Yargıtay Sistemi aktif değil.", error);
+      //       }
+      //     }
+      //   }
 
       setMessages((prev) => [
         ...prev,
-        { id: Date.now(), text: partialMessage, sender: "ai" },
+        { id: Date.now(), text: lawsData, sender: "ai" },
       ]);
       setTyping(false);
       setTypingMessage("");
