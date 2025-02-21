@@ -9,7 +9,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 const loginFields = [
   {
     id: "password",
-    label: "Password",
+    label: "Şifre",
     type: "password",
     placeholder: "*********",
     icon: <RiLockPasswordFill />,
@@ -36,7 +36,7 @@ const ResetPassword = () => {
             </div>
             <div>
               <h2 className="mt-8 text-[26px] font-semibold leading-7 tracking-tight text-[#303841]">
-                Reset Your Password{" "}
+                Şifrenizi Sıfırlayın{" "}
               </h2>
 
               <Formik
@@ -83,7 +83,7 @@ const ResetPassword = () => {
                         className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm"
                         disabled={isSubmitting}
                       >
-                        Reset Password <FaArrowRightLong />
+                        Şifreyi Sıfırla <FaArrowRightLong />
                       </button>
                     </div>
                   </Form>
