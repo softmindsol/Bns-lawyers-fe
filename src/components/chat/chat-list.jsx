@@ -1,5 +1,5 @@
 import { FaRegFilePdf } from "react-icons/fa6";
-import { typing_icon } from "../../assets";
+import { logo_sm, typing_icon } from "../../assets";
 import { FiCopy } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "../../hooks/useChat";
@@ -100,7 +100,7 @@ const ChatList = () => {
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {message?.sender === "ai" && (
-              <div className="h-8 w-8 flex-shrink-0 rounded-full bg-blue-100 shadow-sm" />
+              <img src={logo_sm} className="size-8 rounded-full object-contain " />
             )}
             <div
               className={`group relative max-w-[80%] rounded-2xl p-4 shadow-sm transition-shadow duration-200 hover:shadow-md ${
