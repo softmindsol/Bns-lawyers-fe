@@ -1,9 +1,11 @@
 import { FaRegFilePdf } from "react-icons/fa6";
-import { typing_icon } from "../../assets";
+import { logo_sm, typing_icon } from "../../assets";
 import { FiCopy } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { useChat } from "../../hooks/useChat";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import "./markdown.style.css";
 
 const ChatList = () => {
   const { messages, typing, typingMessage } = useChat();
@@ -47,7 +49,7 @@ const ChatList = () => {
         isScrolling ? "scrollbar-visible" : "scrollbar-hidden"
       }`}
     >
-      <style jsx global>{`
+      <style>{`
         .scrollbar-visible::-webkit-scrollbar {
           width: 6px;
           transition: all 0.3s;
@@ -98,7 +100,7 @@ const ChatList = () => {
             style={{ animationDelay: `${index * 0.1}s` }}
           >
             {message?.sender === "ai" && (
-              <div className="h-8 w-8 flex-shrink-0 rounded-full bg-blue-100 shadow-sm" />
+              <img src={logo_sm} className="size-8 rounded-full object-contain " />
             )}
             <div
               className={`group relative max-w-[80%] rounded-2xl p-4 shadow-sm transition-shadow duration-200 hover:shadow-md ${
@@ -117,8 +119,10 @@ const ChatList = () => {
                   {message?.file?.name}
                 </a>
               ) : (
-                <div className="text-[14px] font-normal">
-                  <ReactMarkdown>{message?.text}</ReactMarkdown>
+                <div className="markdown-container">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message?.text}
+                  </ReactMarkdown>
                 </div>
               )}
 
@@ -130,7 +134,7 @@ const ChatList = () => {
               </button>
 
               {copiedMessageId === message?.id && (
-                <span className="animate-fade-in-down absolute -top-6 right-2 rounded-md bg-white px-2 py-1 text-xs font-bold text-black shadow-sm">
+                <span className="animate-fade-in-down absolute -top-6 right-2 rounded-md bg-white px-2 py-1 text-xs font-bold text-black shadow-sm shadow-primary">
                   Copied!
                 </span>
               )}

@@ -49,7 +49,7 @@ const SignIn = () => {
             </div>
             <div>
               <h2 className="mt-8 text-[26px] font-semibold leading-7 tracking-tight text-[#303841]">
-                Log in to your Account
+                Hesabınıza Giriş Yapın
               </h2>
 
               <Formik
@@ -80,14 +80,18 @@ const SignIn = () => {
                             className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
                           >
                             <div>{icon}</div>
-                            {label}
+                            {label === "Email" ? "E-posta" : "Şifre"}
                           </label>
                           <div className="mt-2">
                             <Field
                               id={id}
                               name={id}
                               type={type}
-                              placeholder={placeholder}
+                              placeholder={
+                                placeholder === "Enter your email"
+                                  ? "E-postanızı girin"
+                                  : "Şifrenizi girin"
+                              }
                               className="block w-full rounded-[2px] border-0 px-3 py-3 text-[14px] font-medium text-[#303841] ring-1 ring-inset ring-[#CCCCCC] placeholder:text-[#2E2E2E] focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                             <ErrorMessage
@@ -112,14 +116,14 @@ const SignIn = () => {
                           htmlFor="remember-me"
                           className="ml-2 text-[14px] font-medium leading-6 text-[#0A2540]"
                         >
-                          Remember me
+                          Beni Hatırla
                         </label>
                       </div>
 
                       <div className="text-sm leading-6">
                         <Link to={"/reset-generate"}>
                           <p className="text-[14px] font-medium leading-6 text-[#0057FF]">
-                            Forgot your password?
+                            Şifrenizi mi unuttunuz?
                           </p>
                         </Link>
                       </div>
@@ -131,7 +135,7 @@ const SignIn = () => {
                         className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
                         disabled={isSubmitting}
                       >
-                        {isSubmitting ? "Loging in..." : "Log in"}
+                        {isSubmitting ? "Giriş yapılıyor..." : "Giriş Yap"}
                         <FaArrowRightLong />
                       </button>
                     </div>
@@ -141,11 +145,10 @@ const SignIn = () => {
 
               <div className="mt-6 flex items-center justify-center">
                 <p className="text-[14px] font-semibold text-[#6B7280]">
-                  New to AiDA CHAT?{" "}
+                  AiDA CHAT&apos; e yeni misiniz?{" "}
                   <Link to={"/sign-up"}>
                     <span className="font-semibold text-[#0057FF] underline">
-                      {" "}
-                      Sign up now{" "}
+                      Şimdi kaydolun
                     </span>
                   </Link>
                 </p>

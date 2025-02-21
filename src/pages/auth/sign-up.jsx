@@ -14,28 +14,28 @@ import useAuthStore from "../../stores/auth.store";
 const formFields = [
   {
     id: "username",
-    label: "Username",
+    label: "Kullanıcı Adı",
     type: "text",
     placeholder: "johndoe",
     icon: <FaUserAlt />,
   },
   {
     id: "phone",
-    label: "Phone number",
+    label: "Telefon Numarası",
     type: "number",
-    placeholder: "+92..",
+    placeholder: "+90 5XX XXX XX XX",
     icon: <FaMobileScreenButton />,
   },
   {
     id: "email",
-    label: "Email address",
+    label: "E-posta Adresi",
     type: "email",
     placeholder: "example@gmail.com",
     icon: <MdEmail />,
   },
   {
     id: "password",
-    label: "Password",
+    label: "Şifre",
     type: "password",
     placeholder: "********",
     icon: <RiLockPasswordFill />,
@@ -64,7 +64,7 @@ const SignUp = () => {
             </div>
             <div>
               <h2 className="mt-8 text-[26px] font-semibold leading-7 tracking-tight text-[#303841]">
-                Create an Account{" "}
+                Hesap Oluştur{" "}
               </h2>
               <Formik
                 initialValues={{
@@ -98,15 +98,16 @@ const SignUp = () => {
                         <div>
                           <label
                             htmlFor="first_name"
-                            className="block text-sm font-semibold leading-4 text-[#303841]"
+                            className="mb-2 flex items-center gap-2 text-sm font-semibold leading-4 text-[#303841]"
                           >
-                            First Name
+                            <FaUserAlt />
+                            Ad
                           </label>
                           <Field
                             id="first_name"
                             name="first_name"
                             type="text"
-                            placeholder="Enter your first name"
+                            placeholder="Adınızı girin"
                             className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                           <ErrorMessage
@@ -118,15 +119,16 @@ const SignUp = () => {
                         <div>
                           <label
                             htmlFor="last_name"
-                            className="block text-sm font-semibold leading-4 text-[#303841]"
+                            className="mb-2 flex items-center gap-2 text-sm font-semibold leading-4 text-[#303841]"
                           >
-                            Last Name
+                            <FaUserAlt />
+                            Soyad
                           </label>
                           <Field
                             id="last_name"
                             name="last_name"
                             type="text"
-                            placeholder="Enter your last name"
+                            placeholder="Soyadınızı girin"
                             className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                           <ErrorMessage
@@ -183,7 +185,7 @@ const SignUp = () => {
                           className="flex w-full items-center justify-center gap-2 rounded-md bg-mygradient1 px-3 py-2 text-[15px] font-medium leading-6 text-white shadow-sm disabled:cursor-not-allowed disabled:opacity-60"
                           disabled={isSubmitting}
                         >
-                          {isSubmitting ? "Signing up ..." : "Sign up"}
+                          {isSubmitting ? "Kayıt olunuyor..." : "Kayıt Ol"}
                           <FaArrowRightLong />
                         </button>
                       </div>

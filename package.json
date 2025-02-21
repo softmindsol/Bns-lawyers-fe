@@ -20,6 +20,7 @@
     "react-international-phone": "^4.3.0",
     "react-markdown": "^9.0.3",
     "react-router-dom": "^6.28.0",
+    "remark-gfm": "^4.0.1",
     "sonner": "^1.7.1",
     "vercel": "^32.3.0",
     "yup": "^1.4.0",

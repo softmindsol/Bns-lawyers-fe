@@ -1,5 +1,5 @@
-import { IoMdAttach } from "react-icons/io";
 import { useChat } from "../../hooks/useChat";
+import { IoSendSharp } from "react-icons/io5";
 
 const ChatHelper = () => {
   const { sendMessage } = useChat();
@@ -14,7 +14,7 @@ const ChatHelper = () => {
           <div className="relative w-full">
             <input
               type="text"
-              placeholder="Enter your message or upload a file..."
+              placeholder="Enter your message to Ask Anything"
               className="w-full rounded-lg border border-gray-200 p-4 pr-24 text-sm shadow-sm focus:border-blue-500 focus:outline-none md:text-base"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && e.target.value.trim()) {
@@ -24,7 +24,7 @@ const ChatHelper = () => {
               }}
             />
             <button className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
-              <IoMdAttach />
+              <IoSendSharp />
             </button>
           </div>
         </div>
