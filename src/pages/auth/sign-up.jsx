@@ -107,7 +107,7 @@ const SignUp = () => {
                             id="first_name"
                             name="first_name"
                             type="text"
-                            placeholder="Enter your first name"
+                            placeholder="Adınızı girin"
                             className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                           <ErrorMessage
@@ -128,7 +128,7 @@ const SignUp = () => {
                             id="last_name"
                             name="last_name"
                             type="text"
-                            placeholder="Enter your last name"
+                            placeholder="Soyadınızı girin"
                             className="block w-full rounded-[2px] border-0 px-3 py-3 ring-1 ring-inset ring-[#CCCCCC] placeholder:text-textblack focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                           <ErrorMessage
