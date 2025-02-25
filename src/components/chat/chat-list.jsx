@@ -6,6 +6,7 @@ import { useChat } from "../../hooks/useChat";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import "./markdown.style.css";
+import { ReactSVG } from "react-svg";
 
 const ChatList = () => {
   const { messages, typing, typingMessage } = useChat();
@@ -99,9 +100,7 @@ const ChatList = () => {
             }`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            {message?.sender === "ai" && (
-              <img src={logo_sm} className="size-8 rounded-full object-contain " />
-            )}
+            {message?.sender === "ai" && <ReactSVG src={logo_sm} />}
             <div
               className={`group relative max-w-[80%] rounded-2xl p-4 shadow-sm transition-shadow duration-200 hover:shadow-md ${
                 message?.sender === "user"

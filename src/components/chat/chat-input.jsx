@@ -21,13 +21,13 @@ const ChatInput = () => {
         <div className="flex items-center justify-center">
           <div
             className={
-              "rounded-lg border border-gray-300 bg-white/80 p-4 pr-12 backdrop-blur-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:outline-none lg:w-[600px]"
+              "w-full max-w-screen-sm rounded-lg border border-gray-300 bg-white/80 p-2 pr-12 backdrop-blur-sm transition-all duration-200 hover:border-gray-400 focus:border-blue-500 focus:outline-none sm:p-4"
             }
           >
             <input
               type="text"
               placeholder="Enter your message to Ask Anything"
-              className="w-full focus:outline-none"
+              className="w-full text-sm focus:outline-none sm:text-base"
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               onKeyDown={(e) => {

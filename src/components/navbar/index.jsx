@@ -1,8 +1,10 @@
-import { BiMenu, BiUser } from "react-icons/bi";
+import { BiUser } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import useAuthenticate from "../../hooks/useAuthenticate";
 import useAuthStore from "../../stores/auth.store";
+import { ReactSVG } from "react-svg";
+import { menu_icon } from "../../assets";
 
 const Navbar = ({ onMenuClick }) => {
   const { logout, userInfo } = useAuthStore();
@@ -25,7 +27,7 @@ const Navbar = ({ onMenuClick }) => {
           className="rounded-lg p-2 hover:bg-gray-100"
           onClick={onMenuClick}
         >
-          <BiMenu className="h-5 w-5 text-gray-600" />
+          <ReactSVG src={menu_icon} />
         </button>
 
         <div className="flex items-center space-x-1 md:space-x-4">

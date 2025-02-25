@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useRef } from "react";
+import { v4 as uuidv4 } from "uuid";
 import http from "../utils/http";
 
 const ChatContext = createContext();
@@ -6,7 +7,7 @@ const ChatContext = createContext();
 async function getLawsData(payload) {
   try {
     const response = await http.post(`/chat/send`, payload);
-    const data = response.data;
+    const data = response?.data;
 
     return data?.response;
   } catch (error) {
@@ -31,7 +32,10 @@ export const ChatProvider = ({ children }) => {
     const { signal } = abortControllerRef.current;
 
     try {
-      const lawsData = await getLawsData({ message: text });
+      const lawsData = await getLawsData({
+        message: text,
+        thread_id: uuidv4(),
+      });
 
       //   const response = await fetch(OPEN_API_URL, {
       //     method: "POST",

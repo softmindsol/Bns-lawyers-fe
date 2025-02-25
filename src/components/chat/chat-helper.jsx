@@ -15,7 +15,7 @@ const ChatHelper = () => {
             <input
               type="text"
               placeholder="Enter your message to Ask Anything"
-              className="w-full rounded-lg border border-gray-200 p-4 pr-24 text-sm shadow-sm focus:border-blue-500 focus:outline-none md:text-base"
+              className="w-full rounded-lg border border-gray-200 p-3 sm:p-4 pr-12 text-sm shadow-sm focus:border-blue-500 focus:outline-none md:text-base"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && e.target.value.trim()) {
                   sendMessage({ text: e.target.value.trim(), file: null });

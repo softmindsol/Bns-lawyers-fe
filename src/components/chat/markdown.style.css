@@ -1,3 +1,7 @@
+.markdown-container p {
+  font-size: 16px;
+}
+
 .markdown-container table {
   width: 100%;
   border-collapse: collapse;
@@ -12,4 +16,10 @@
 
 .markdown-container th {
   background-color: #f4f4f4;
+}
+
+@media (max-width: 640px) {
+  .markdown-container p {
+    font-size: 14px;
+  }
 }

@@ -4,10 +4,11 @@ import {
   AiOutlineFileText,
   AiOutlineShareAlt,
 } from "react-icons/ai";
-import Logo from "../../assets/sidebarlogo.png";
 import { NavLink, useLocation } from "react-router-dom";
 import UpgradePlan from "./upgrade-plan";
 import FeedBack from "./feedback";
+import { ReactSVG } from "react-svg";
+import { brand_logo } from "../../assets";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const [showFeedback, setShowFeedback] = useState(false);
@@ -39,7 +40,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     >
       <div className="border-b p-4">
         <div className="flex items-center justify-center">
-          <img src={Logo} alt="Logo" />
+          <ReactSVG src={brand_logo} alt="Logo" />
         </div>
       </div>
 

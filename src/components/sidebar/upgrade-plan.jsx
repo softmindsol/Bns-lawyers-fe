@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import shuttle from "../../assets/shuttle.png";
+import { ReactSVG } from "react-svg";
+import { shuttle_icon } from "../../assets";
 
 const UpgradePlan = ({ setShowFeedback }) => {
   return (
@@ -14,7 +15,7 @@ const UpgradePlan = ({ setShowFeedback }) => {
         onClick={setShowFeedback}
       >
         <div>
-          <img src={shuttle} alt="Shuttle" />
+          <ReactSVG src={shuttle_icon} alt="Shuttle" />
         </div>
         <div>
           <h5 className="text-base font-medium text-[#0A2540]">Upgrade Plan</h5>
