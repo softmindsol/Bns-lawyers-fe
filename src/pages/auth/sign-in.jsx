@@ -13,14 +13,14 @@ import useAuthStore from "../../stores/auth.store";
 const loginFields = [
   {
     id: "email",
-    label: "Email Address",
+    label: "E-posta Adresi",
     type: "email",
     placeholder: "example@gmail.com",
     icon: <MdEmail />,
   },
   {
     id: "password",
-    label: "Password",
+    label: "Şifre",
     type: "password",
     placeholder: "********",
     icon: <RiLockPasswordFill />,
@@ -80,18 +80,14 @@ const SignIn = () => {
                             className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
                           >
                             <div>{icon}</div>
-                            {label === "Email" ? "E-posta" : "Şifre"}
+                            {label}
                           </label>
                           <div className="mt-2">
                             <Field
                               id={id}
                               name={id}
                               type={type}
-                              placeholder={
-                                placeholder === "Enter your email"
-                                  ? "E-postanızı girin"
-                                  : "Şifrenizi girin"
-                              }
+                              placeholder={placeholder}
                               className="block w-full rounded-[2px] border-0 px-3 py-3 text-[14px] font-medium text-[#303841] ring-1 ring-inset ring-[#CCCCCC] placeholder:text-[#2E2E2E] focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                             <ErrorMessage
