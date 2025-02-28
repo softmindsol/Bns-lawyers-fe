@@ -58,7 +58,7 @@ const SignUp = () => {
     >
       <div className="container mx-auto max-w-7xl overflow-hidden rounded-2xl shadow-lg">
         <div className="lg:grid lg:grid-cols-[1fr_1fr]">
-          <div className="flex flex-1 flex-col justify-start rounded-2xl bg-white px-4 sm:px-6 sm:py-16 lg:rounded-bl-none lg:rounded-br-none lg:rounded-tl-2xl lg:rounded-tr-none lg:px-20 xl:px-24">
+          <div className="flex flex-1 flex-col justify-start rounded-2xl bg-white px-4 pb-4 sm:px-6 sm:py-16 lg:rounded-bl-none lg:rounded-br-none lg:rounded-tl-2xl lg:rounded-tr-none lg:px-20 xl:px-24">
             <div className="flex flex-col items-start justify-end">
               <img src={Logo} alt="Logo" />
             </div>
@@ -94,7 +94,7 @@ const SignUp = () => {
                 {({ isSubmitting }) => {
                   return (
                     <Form className="mt-10 space-y-6">
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-4 sm:grid-cols-2">
                         <div>
                           <label
                             htmlFor="first_name"
@@ -143,7 +143,7 @@ const SignUp = () => {
                           <div key={id}>
                             <label
                               htmlFor={id}
-                              className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
+                              className="flex items-center gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
                             >
                               <div>{icon}</div>
                               {label}

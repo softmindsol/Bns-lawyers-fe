@@ -9,6 +9,7 @@ import { SignInSchema } from "../../schema/user.schema";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Cookies from "js-cookie";
 import useAuthStore from "../../stores/auth.store";
+import Checkbox from "../../components/checkbox";
 
 const loginFields = [
   {
@@ -43,7 +44,7 @@ const SignIn = () => {
     >
       <div className="container mx-auto max-w-7xl overflow-hidden rounded-2xl shadow-lg">
         <div className="lg:grid lg:grid-cols-[1fr_1fr]">
-          <div className="flex flex-1 flex-col justify-start rounded-2xl bg-white px-4 sm:px-6 sm:py-16 lg:rounded-bl-none lg:rounded-br-none lg:rounded-tl-2xl lg:rounded-tr-none lg:px-20 xl:px-24">
+          <div className="flex flex-1 flex-col justify-start rounded-2xl bg-white px-4 pb-4 sm:px-6 sm:py-16 lg:rounded-bl-none lg:rounded-br-none lg:rounded-tl-2xl lg:rounded-tr-none lg:px-20 xl:px-24">
             <div className="flex flex-col items-start justify-end">
               <img src={Logo} alt="Logo" />
             </div>
@@ -77,7 +78,7 @@ const SignIn = () => {
                         <div key={id}>
                           <label
                             htmlFor={id}
-                            className="block gap-1 text-sm font-semibold leading-4 text-[#303841] lg:flex"
+                            className="flex items-center gap-1 text-sm font-semibold leading-4 text-[#303841]"
                           >
                             <div>{icon}</div>
                             {label}
@@ -102,18 +103,7 @@ const SignIn = () => {
 
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="flex items-center">
-                        <Field
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-3 w-3 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        />
-                        <label
-                          htmlFor="remember-me"
-                          className="ml-2 text-[14px] font-medium leading-6 text-[#0A2540]"
-                        >
-                          Beni Hatırla
-                        </label>
+                        <Checkbox name="remember-me" label="Beni Hatırla" />
                       </div>
 
                       <div className="text-sm leading-6">
